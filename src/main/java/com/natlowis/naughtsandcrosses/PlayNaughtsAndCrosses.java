@@ -30,12 +30,22 @@ public class PlayNaughtsAndCrosses implements Play {
 			while (playerOneGo && !done) {
 				int i = input.nextInt();
 				int j = input.nextInt();
-				done = board.add(playerOne, i, j);
+				try {
+					done = board.add(playerOne, i, j);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			while (!playerOneGo && !done) {
 				int i = input.nextInt();
 				int j = input.nextInt();
-				done = board.add(playerTwo, i, j);
+				try {
+					done = board.add(playerTwo, i, j);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 			playerOneGo = !playerOneGo;
 			print();

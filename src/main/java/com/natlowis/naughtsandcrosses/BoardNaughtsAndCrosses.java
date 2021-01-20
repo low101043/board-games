@@ -11,7 +11,7 @@ public class BoardNaughtsAndCrosses implements Board {
 	private Piece blank;
 	
 	public BoardNaughtsAndCrosses() {
-		board = new Piece[WIDTH][HEIGHT];
+		board = new Piece[HEIGHT][WIDTH];
 		
 		blank = new PieceNaughtsAndCrosses("Blank", false);
 		
@@ -87,7 +87,7 @@ public class BoardNaughtsAndCrosses implements Board {
 	}
 
 	@Override
-	public boolean add(Piece input, int i, int j) {
+	public boolean add(Piece input, int i, int j) throws Exception {  // ADD EXCEPTIONS
 		
 		if (i < 0  || i >= HEIGHT) {
 			return false;
