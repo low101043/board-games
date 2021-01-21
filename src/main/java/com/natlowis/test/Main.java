@@ -1,23 +1,14 @@
 package com.natlowis.test;
 
-import com.natlowis.connectfour.BoardConnectFour;
-import com.natlowis.connectfour.PlayConnectFour;
-import com.natlowis.interfaces.Play;
-import com.natlowis.naughtsandcrosses.PlayNaughtsAndCrosses;
+import com.natlowis.ui.cli.Run;
 
 public class Main {
 
 	public static void main(String[] args) {
 		
 
-		PlayNaughtsAndCrosses play = new PlayNaughtsAndCrosses(); 
-		System.out.println("HEllo");
-		
-		Play four = new PlayConnectFour();
-		
-		four.run();
-		
-		System.out.println("Finished");
+		Run game = new Run();
+		game.run();
 
 	}
 

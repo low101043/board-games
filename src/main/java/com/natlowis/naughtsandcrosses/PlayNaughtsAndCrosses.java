@@ -3,17 +3,18 @@ package com.natlowis.naughtsandcrosses;
 import com.natlowis.interfaces.Board;
 import com.natlowis.interfaces.Piece;
 import com.natlowis.interfaces.Play;
+import com.natlowis.ui.cli.InputOutput;
 
 import java.util.Scanner;
 
 public class PlayNaughtsAndCrosses implements Play {
 	
 	private Board board;
-	private Scanner input;
+	private InputOutput inputOutput;
 	
-	public PlayNaughtsAndCrosses() {
+	public PlayNaughtsAndCrosses(InputOutput inputOutput) {
 		board = new BoardNaughtsAndCrosses();
-		input = new Scanner(System.in);
+		this.inputOutput = inputOutput;
 	}
 
 	@Override
@@ -24,12 +25,14 @@ public class PlayNaughtsAndCrosses implements Play {
 		boolean playerOneGo = true;
 		
 		while (!completed()) {
-			
+			print();
 			
 			boolean done = false;
 			while (playerOneGo && !done) {
-				int i = input.nextInt();
-				int j = input.nextInt();
+				inputOutput.output("Please enter number of place to place position");
+				int place = inputOutput.input();
+				int j = place % 3;
+				int i = (place - j) / 3;
 				try {
 					done = board.add(playerOne, i, j);
 				} catch (Exception e) {
@@ -38,8 +41,10 @@ public class PlayNaughtsAndCrosses implements Play {
 				}
 			}
 			while (!playerOneGo && !done) {
-				int i = input.nextInt();
-				int j = input.nextInt();
+				inputOutput.output("Please enter number of place to place position");
+				int place = inputOutput.input();
+				int j = place % 3;
+				int i = (place - j) / 3;
 				try {
 					done = board.add(playerTwo, i, j);
 				} catch (Exception e) {
@@ -48,7 +53,7 @@ public class PlayNaughtsAndCrosses implements Play {
 				}
 			}
 			playerOneGo = !playerOneGo;
-			print();
+			
 		}
 
 	}
@@ -75,7 +80,8 @@ public class PlayNaughtsAndCrosses implements Play {
 		for (int i = 0; i < boardToOutput.length; i++) {
 			for (int j = 0; j < boardToOutput[i].length; j++) {
 				if (boardToOutput[i][j].type().equals("Blank")) {
-					output += " ,";
+					String place = String.valueOf((i*3)+j);
+					output += (place+",");
 				}
 				else if (boardToOutput[i][j].type().equals("Cross")) {
 					output += "x,";
@@ -87,7 +93,8 @@ public class PlayNaughtsAndCrosses implements Play {
 			output += "\n";
 			
 		}
-		System.out.println(output);
+		inputOutput.output(output);
+		
 	}
 
 }

@@ -172,7 +172,7 @@ public class BoardConnectFour implements Board {
 		Piece data = board[row][column];
 		while (row < HEIGHT && data == empty) {
 			row++;
-			System.out.println(row);
+			//System.out.println(row);
 			if (row < HEIGHT) {
 				data = board[row][column];
 			}

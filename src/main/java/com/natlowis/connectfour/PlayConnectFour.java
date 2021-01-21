@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.natlowis.interfaces.Board;
 import com.natlowis.interfaces.Piece;
 import com.natlowis.interfaces.Play;
+import com.natlowis.ui.cli.InputOutput;
 import com.natlowis.connectfour.BoardConnectFour;
 import com.natlowis.connectfour.PieceConnectFour;
 
@@ -12,11 +13,11 @@ public class PlayConnectFour implements Play {
 
 	
 	private BoardConnectFour board;
-	private Scanner input;
+	private InputOutput inputOutput;
 	
-	public PlayConnectFour() {
+	public PlayConnectFour(InputOutput inputOutput) {
 		board = new BoardConnectFour();
-		input = new Scanner(System.in);
+		this.inputOutput = inputOutput;
 	}
 
 	@Override
@@ -27,11 +28,12 @@ public class PlayConnectFour implements Play {
 		boolean playerOneGo = true;
 		
 		while (!completed()) {
-			
+			print();		
 			
 			boolean done = false;
 			while (playerOneGo && !done) {
-				int i = input.nextInt();	
+				inputOutput.output("Please enter which row you want to choose");
+				int i = inputOutput.input();
 				try {
 					done = board.add(playerOne, i);
 				} catch (Exception e) {
@@ -41,7 +43,8 @@ public class PlayConnectFour implements Play {
 			
 			}
 			while (!playerOneGo && !done) {
-				int i = input.nextInt();
+				inputOutput.output("Please enter which row you want to choose");
+				int i = inputOutput.input();
 				
 				try {
 					done = board.add(playerTwo, i);
@@ -51,7 +54,7 @@ public class PlayConnectFour implements Play {
 				}
 			}
 			playerOneGo = !playerOneGo;
-			print();
+			
 		}
 
 	}
@@ -73,7 +76,7 @@ public class PlayConnectFour implements Play {
 	}
 	
 	private void print() {
-		String output = "";
+		String output = "0,1,2,3,4,5,6\n";
 		Piece[][] boardToOutput = board.currentBoard();
 		for (int i = 0; i < boardToOutput.length; i++) {
 			for (int j = 0; j < boardToOutput[i].length; j++) {
@@ -90,7 +93,7 @@ public class PlayConnectFour implements Play {
 			output += "\n";
 			
 		}
-		System.out.println(output);
+		inputOutput.output(output);
 	}
 
 }
