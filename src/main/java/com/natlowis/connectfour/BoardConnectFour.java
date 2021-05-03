@@ -3,13 +3,25 @@ package com.natlowis.connectfour;
 import com.natlowis.interfaces.Board;
 import com.natlowis.interfaces.Piece;
 
+/**
+ * This contains all the information of a {@link Board} for Connect Four
+ * @author low101043
+ *
+ */
 public class BoardConnectFour implements Board {
 
+	/** Will contain all the {@link Piece} */
 	private Piece[][] board;
+	/** The width of the board */
 	private int WIDTH = 7;
+	/** The Height of the board */
 	private int HEIGHT = 6;
+	/** The Empty {@link Piece} to use */
 	private Piece empty;
 
+	/** 
+	 * A Constructor which created the board and an empty {@link Piece}
+	 */
 	public BoardConnectFour() {
 		board = new Piece[HEIGHT][WIDTH];
 
@@ -152,6 +164,13 @@ public class BoardConnectFour implements Board {
 		throw new Exception();
 	}
 
+	/**
+	 * Will add a {@link Piece} to the board
+	 * @param input The input {@link Piece} to use
+	 * @param column The column number to add at
+	 * @return {@code true} if it was added otherwise {@code false}
+	 * @throws Exception ??
+	 */
 	public boolean add(Piece input, int column) throws Exception { // TODO Add exceptions
 
 		if (column < 0 || column >= WIDTH) {
@@ -179,7 +198,6 @@ public class BoardConnectFour implements Board {
 
 	@Override
 	public void remove(Piece input, int i, int j) {
-		// TODO Auto-generated method stub
 
 		System.out.println("ERROR"); // SORT
 
@@ -187,7 +205,7 @@ public class BoardConnectFour implements Board {
 
 	@Override
 	public Piece[][] currentBoard() {
-		// TODO Auto-generated method stub
+		
 		return board; // SHOULD BE DEEPCOPY
 	}
 
