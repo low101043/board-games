@@ -1,20 +1,14 @@
 package com.natlowis.connectfour;
 
-import java.util.Scanner;
-
-import com.natlowis.interfaces.Board;
 import com.natlowis.interfaces.Piece;
 import com.natlowis.interfaces.Play;
 import com.natlowis.ui.cli.InputOutput;
-import com.natlowis.connectfour.BoardConnectFour;
-import com.natlowis.connectfour.PieceConnectFour;
 
 public class PlayConnectFour implements Play {
 
-	
 	private BoardConnectFour board;
 	private InputOutput inputOutput;
-	
+
 	public PlayConnectFour(InputOutput inputOutput) {
 		board = new BoardConnectFour();
 		this.inputOutput = inputOutput;
@@ -24,12 +18,12 @@ public class PlayConnectFour implements Play {
 	public void run() {
 		Piece playerOne = new PieceConnectFour("Red", true);
 		Piece playerTwo = new PieceConnectFour("Yellow", false);
-		
+
 		boolean playerOneGo = true;
-		
+
 		while (!completed()) {
-			print();		
-			
+			print();
+
 			boolean done = false;
 			while (playerOneGo && !done) {
 				inputOutput.output("Please enter which row you want to choose");
@@ -40,12 +34,12 @@ public class PlayConnectFour implements Play {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
+
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("Please enter which row you want to choose");
 				int i = inputOutput.input();
-				
+
 				try {
 					done = board.add(playerTwo, i);
 				} catch (Exception e) {
@@ -54,27 +48,25 @@ public class PlayConnectFour implements Play {
 				}
 			}
 			playerOneGo = !playerOneGo;
-			
+
 		}
 
 	}
-	
+
 	private boolean completed() {
-		
+
 		Piece won = board.won();
-		
-		
-		//System.out.println(won.type());
-		if (!(won.equals(null)) && won.type().equals("Empty")){
+
+		// System.out.println(won.type());
+		if (!(won.equals(null)) && won.type().equals("Empty")) {
 			return false;
-			
-		}
-		else {
+
+		} else {
 			return true;
 		}
-		
+
 	}
-	
+
 	private void print() {
 		String output = "0,1,2,3,4,5,6\n";
 		Piece[][] boardToOutput = board.currentBoard();
@@ -82,16 +74,14 @@ public class PlayConnectFour implements Play {
 			for (int j = 0; j < boardToOutput[i].length; j++) {
 				if (boardToOutput[i][j].type().equals("Empty")) {
 					output += " ,";
-				}
-				else if (boardToOutput[i][j].type().equals("Red")) {
+				} else if (boardToOutput[i][j].type().equals("Red")) {
 					output += "x,";
-				}
-				else {
+				} else {
 					output += "o,";
 				}
 			}
 			output += "\n";
-			
+
 		}
 		inputOutput.output(output);
 	}

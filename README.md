@@ -4,7 +4,7 @@ This is a Java Project where I want to implement different board games.
 
 ## Goals
 - To implement a multiplayer version of these games
-    - Naughts & Crosses - I have already done this in Python and Haskell
+    - Naughts & Crosses
     - Connect 4 
     - Chess - This is the hardest
 

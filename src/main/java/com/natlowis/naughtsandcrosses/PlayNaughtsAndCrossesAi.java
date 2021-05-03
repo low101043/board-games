@@ -3,24 +3,36 @@ package com.natlowis.naughtsandcrosses;
 import com.natlowis.interfaces.Board;
 import com.natlowis.interfaces.Piece;
 import com.natlowis.interfaces.Play;
+import com.natlowis.naughtsandcrosses.ai.MinMax;
 import com.natlowis.ui.cli.InputOutput;
 
-public class PlayNaughtsAndCrosses implements Play {
+public class PlayNaughtsAndCrossesAi implements Play {
 
 	private Board board;
 	private InputOutput inputOutput;
+	private boolean first;
 
-	public PlayNaughtsAndCrosses(InputOutput inputOutput) {
+	public PlayNaughtsAndCrossesAi(InputOutput inputOutput, boolean first) {
 		board = new BoardNaughtsAndCrosses();
 		this.inputOutput = inputOutput;
+		this.first = first;
 	}
 
 	@Override
 	public void run() {
-		Piece playerOne = new PieceNaughtsAndCrosses("Cross", true);
-		Piece playerTwo = new PieceNaughtsAndCrosses("Naughts", false);
+		Piece playerOne;
+		Piece playerTwo;
+		boolean playerOneGo;
+		if (first) {
+			playerOne = new PieceNaughtsAndCrosses("Cross", true);
+			playerTwo = new PieceNaughtsAndCrosses("Naughts", false);
 
-		boolean playerOneGo = true;
+			playerOneGo = true;
+		} else {
+			playerTwo = new PieceNaughtsAndCrosses("Cross", false);
+			playerOne = new PieceNaughtsAndCrosses("Naughts", true);
+			playerOneGo = false;
+		}
 
 		while (!completed()) {
 			print();
@@ -39,10 +51,12 @@ public class PlayNaughtsAndCrosses implements Play {
 				}
 			}
 			while (!playerOneGo && !done) {
-				inputOutput.output("Please enter number of place to place position");
-				int place = inputOutput.input();
-				int j = place % 3;
-				int i = (place - j) / 3;
+				inputOutput.output("AI Running");
+				MinMax minMax = new MinMax(board, playerTwo);
+				int[] coord = minMax.coordinates();
+
+				int i = coord[0];
+				int j = coord[1];
 				try {
 					done = board.add(playerTwo, i, j);
 				} catch (Exception e) {
@@ -61,7 +75,9 @@ public class PlayNaughtsAndCrosses implements Play {
 		Piece won = board.won();
 
 		// System.out.println(won.type());
-		if (!(won.equals(null)) && won.type().equals("Blank")) {
+		if (won == null) {
+			return true;
+		} else if (won.type().equals("Blank")) {
 			return false;
 
 		} else {
