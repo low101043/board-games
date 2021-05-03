@@ -4,11 +4,22 @@ import com.natlowis.interfaces.Piece;
 import com.natlowis.interfaces.Play;
 import com.natlowis.ui.cli.InputOutput;
 
+/**
+ * This will actually Play Connect Four
+ * @author low101043
+ *
+ */
 public class PlayConnectFour implements Play {
 
+	/** The {@link Board} to use */
 	private BoardConnectFour board;
+	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
 
+	/**
+	 * A constructor which creates the game
+	 * @param inputOutput The {@link InputOutput} to use
+	 */
 	public PlayConnectFour(InputOutput inputOutput) {
 		board = new BoardConnectFour();
 		this.inputOutput = inputOutput;
@@ -53,12 +64,17 @@ public class PlayConnectFour implements Play {
 
 	}
 
+	/**
+	 * Whether the game has been completed
+	 * @return {@code true} if the game is finished otherwise false
+	 */
 	private boolean completed() {
 
 		Piece won = board.won();
 
-		// System.out.println(won.type());
-		if (!(won.equals(null)) && won.type().equals("Empty")) {
+		if (won == null) {
+			return true;
+		} else if (won.type().equals("Empty")) {
 			return false;
 
 		} else {
@@ -67,6 +83,9 @@ public class PlayConnectFour implements Play {
 
 	}
 
+	/**
+	 * Will output the board
+	 */
 	private void print() {
 		String output = "0,1,2,3,4,5,6\n";
 		Piece[][] boardToOutput = board.currentBoard();

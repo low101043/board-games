@@ -61,13 +61,14 @@ public class PlayNaughtsAndCrosses implements Play {
 		Piece won = board.won();
 
 		// System.out.println(won.type());
-		if (!(won.equals(null)) && won.type().equals("Blank")) {
+		if (won == null) {
+			return true;
+		} else if (won.type().equals("Blank")) {
 			return false;
 
 		} else {
 			return true;
 		}
-
 	}
 
 	private void print() {
