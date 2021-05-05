@@ -6,12 +6,25 @@ import com.natlowis.interfaces.Play;
 import com.natlowis.naughtsandcrosses.ai.MinMax;
 import com.natlowis.ui.cli.InputOutput;
 
+/**
+ * Plays Naughts and crosses with an AI player
+ * @author low101043
+ *
+ */
 public class PlayNaughtsAndCrossesAi implements Play {
 
+	/** The {@link Board} to use */
 	private Board board;
+	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
+	/** Whether the user goes first or not */
 	private boolean first;
 
+	/**
+	 * Basic Constructor
+	 * @param inputOutput The {@link InputOutput} to use
+	 * @param first {@code true} if user goes first otherwise {@code false}
+	 */
 	public PlayNaughtsAndCrossesAi(InputOutput inputOutput, boolean first) {
 		board = new BoardNaughtsAndCrosses();
 		this.inputOutput = inputOutput;
@@ -70,6 +83,10 @@ public class PlayNaughtsAndCrossesAi implements Play {
 
 	}
 
+	/**
+	 * Checks if the game is completed
+	 * @return {@code true} if the game is completed otherwise {@code false}
+	 */
 	private boolean completed() {
 
 		Piece won = board.won();
@@ -86,6 +103,9 @@ public class PlayNaughtsAndCrossesAi implements Play {
 
 	}
 
+	/**
+	 * Will print the board to the screen
+	 */
 	private void print() {
 		String output = "";
 		Piece[][] boardToOutput = board.currentBoard();

@@ -5,11 +5,22 @@ import com.natlowis.interfaces.Piece;
 import com.natlowis.interfaces.Play;
 import com.natlowis.ui.cli.InputOutput;
 
+/**
+ * A Class which implements {@link Play} for a 2 player Naughts & Crosses game
+ * @author low101043
+ *
+ */
 public class PlayNaughtsAndCrosses implements Play {
 
+	/** The {@link Board} to use */
 	private Board board;
+	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
 
+	/**
+	 * Normal Constructor 
+	 * @param inputOutput The {@link InputOutput} to use
+	 */
 	public PlayNaughtsAndCrosses(InputOutput inputOutput) {
 		board = new BoardNaughtsAndCrosses();
 		this.inputOutput = inputOutput;
@@ -56,6 +67,10 @@ public class PlayNaughtsAndCrosses implements Play {
 
 	}
 
+	/**
+	 * Checks if the game is completed
+	 * @return {@code true} if the game is completed otherwise {@code false}
+	 */
 	private boolean completed() {
 
 		Piece won = board.won();
@@ -71,6 +86,9 @@ public class PlayNaughtsAndCrosses implements Play {
 		}
 	}
 
+	/**
+	 * Will print the board to the screen
+	 */
 	private void print() {
 		String output = "";
 		Piece[][] boardToOutput = board.currentBoard();

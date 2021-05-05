@@ -3,15 +3,31 @@ package com.natlowis.naughtsandcrosses;
 import com.natlowis.interfaces.Board;
 import com.natlowis.interfaces.Piece;
 
+/**
+ * This will hold the game used in Naughts and Crosses
+ * @author low101043
+ *
+ */
 public class BoardNaughtsAndCrosses implements Board {
 
+	/** This is the board which contains the {@link Piece}s */
 	private Piece[][] board;
+	
+	/** The width of the 2D array */
 	private int WIDTH = 3;
+	/** The height of the 2D array */
 	private int HEIGHT = 3;
+	
+	/** The blank {@link Piece} */
 	private Piece blank;
+	/** A generic Cross {@link Piece} */
 	private Piece cross;
+	/** A generic Naught {@link Piece} */
 	private Piece naughts;
 
+	/**
+	 * A constructor which created the board
+	 */
 	public BoardNaughtsAndCrosses() {
 		board = new Piece[HEIGHT][WIDTH];
 
@@ -24,6 +40,11 @@ public class BoardNaughtsAndCrosses implements Board {
 		}
 	}
 
+	/**
+	 * A constructor which is used to create a {@code GameTree}
+	 * @param boardCopy A copy of the previous board
+	 * @param blankCopy A copy of the blank {@link Piece}
+	 */
 	public BoardNaughtsAndCrosses(Piece[][] boardCopy, Piece blankCopy) {
 		blank = new PieceNaughtsAndCrosses("Blank", false);
 		cross = new PieceNaughtsAndCrosses("Cross", false);

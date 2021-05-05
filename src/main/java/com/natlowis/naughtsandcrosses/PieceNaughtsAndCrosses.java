@@ -2,15 +2,32 @@ package com.natlowis.naughtsandcrosses;
 
 import com.natlowis.interfaces.Piece;
 
+/**
+ * This creates the {@link Piece} for Naughts and Crosses
+ * @author low101043
+ *
+ */
 public class PieceNaughtsAndCrosses implements Piece {
 
+	/**
+	 * The different kind of pieces you can have
+	 * @author low101043
+	 *
+	 */
 	private enum Type {
 		BLANK, NAUGHT, CROSS
 	}
 
+	/** The {@code Type} of this {@link Piece} */ 
 	private Type type;
+	/** Whether this is Player One */
 	private Boolean playerOne;
 
+	/** 
+	 * A Constructor 
+	 * @param typeStr The type of the piece
+	 * @param playerOneChoice {@code true} if player one else {@code false}
+	 */
 	public PieceNaughtsAndCrosses(String typeStr, boolean playerOneChoice) {
 
 		if (typeStr == "Blank") {
