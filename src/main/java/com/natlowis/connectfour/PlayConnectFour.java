@@ -61,6 +61,7 @@ public class PlayConnectFour implements Play {
 			playerOneGo = !playerOneGo;
 
 		}
+		print();
 
 	}
 

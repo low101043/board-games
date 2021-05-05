@@ -64,6 +64,7 @@ public class PlayNaughtsAndCrosses implements Play {
 			playerOneGo = !playerOneGo;
 
 		}
+		print();
 
 	}
 

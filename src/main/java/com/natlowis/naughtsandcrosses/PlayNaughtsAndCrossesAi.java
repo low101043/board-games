@@ -80,6 +80,7 @@ public class PlayNaughtsAndCrossesAi implements Play {
 			playerOneGo = !playerOneGo;
 
 		}
+		print();
 
 	}
 
