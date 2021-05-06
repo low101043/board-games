@@ -1,7 +1,7 @@
-package com.natlowis.connectfour;
+package com.natlowis.games.game.connectfour;
 
-import com.natlowis.interfaces.Board;
-import com.natlowis.interfaces.Piece;
+import com.natlowis.games.game.interfaces.Board;
+import com.natlowis.games.game.interfaces.Piece;
 
 /**
  * This contains all the information of a {@link Board} for Connect Four

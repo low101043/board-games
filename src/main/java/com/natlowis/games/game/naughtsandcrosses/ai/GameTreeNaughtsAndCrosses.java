@@ -1,9 +1,9 @@
-package com.natlowis.naughtsandcrosses.ai;
+package com.natlowis.games.game.naughtsandcrosses.ai;
 
 import java.util.ArrayList;
 
-import com.natlowis.naughtsandcrosses.BoardNaughtsAndCrosses;
-import com.natlowis.naughtsandcrosses.PieceNaughtsAndCrosses;
+import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
+import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
 /**
  * Creates the GameTree for a Naughts and Crosses Game

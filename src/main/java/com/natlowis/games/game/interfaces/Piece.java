@@ -1,4 +1,4 @@
-package com.natlowis.interfaces;
+package com.natlowis.games.game.interfaces;
 
 /** 
  * The {@link Piece}'s used on the {@link Board}

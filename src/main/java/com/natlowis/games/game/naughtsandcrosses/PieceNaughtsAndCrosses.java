@@ -1,6 +1,6 @@
-package com.natlowis.naughtsandcrosses;
+package com.natlowis.games.game.naughtsandcrosses;
 
-import com.natlowis.interfaces.Piece;
+import com.natlowis.games.game.interfaces.Piece;
 
 /**
  * This creates the {@link Piece} for Naughts and Crosses

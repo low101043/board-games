@@ -1,7 +1,7 @@
-package com.natlowis.naughtsandcrosses;
+package com.natlowis.games.game.naughtsandcrosses;
 
-import com.natlowis.interfaces.Board;
-import com.natlowis.interfaces.Piece;
+import com.natlowis.games.game.interfaces.Board;
+import com.natlowis.games.game.interfaces.Piece;
 
 /**
  * This will hold the game used in Naughts and Crosses

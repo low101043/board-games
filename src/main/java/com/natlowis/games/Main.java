@@ -1,6 +1,6 @@
-package com.natlowis.test;
+package com.natlowis.games;
 
-import com.natlowis.ui.cli.Run;
+import com.natlowis.games.ui.cli.Run;
 
 /**
  * Entrypoint of the Game

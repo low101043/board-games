@@ -1,4 +1,4 @@
-package com.natlowis.ui.cli;
+package com.natlowis.games.ui.cli;
 
 import java.util.Scanner;
 

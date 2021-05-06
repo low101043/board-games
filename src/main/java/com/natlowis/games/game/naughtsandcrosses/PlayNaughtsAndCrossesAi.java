@@ -1,37 +1,51 @@
-package com.natlowis.naughtsandcrosses;
+package com.natlowis.games.game.naughtsandcrosses;
 
-import com.natlowis.interfaces.Board;
-import com.natlowis.interfaces.Piece;
-import com.natlowis.interfaces.Play;
-import com.natlowis.ui.cli.InputOutput;
+import com.natlowis.games.game.interfaces.Board;
+import com.natlowis.games.game.interfaces.Piece;
+import com.natlowis.games.game.interfaces.Play;
+import com.natlowis.games.game.naughtsandcrosses.ai.MinMax;
+import com.natlowis.games.ui.cli.InputOutput;
 
 /**
- * A Class which implements {@link Play} for a 2 player Naughts & Crosses game
+ * Plays Naughts and crosses with an AI player
  * @author low101043
  *
  */
-public class PlayNaughtsAndCrosses implements Play {
+public class PlayNaughtsAndCrossesAi implements Play {
 
 	/** The {@link Board} to use */
 	private Board board;
 	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
+	/** Whether the user goes first or not */
+	private boolean first;
 
 	/**
-	 * Normal Constructor 
+	 * Basic Constructor
 	 * @param inputOutput The {@link InputOutput} to use
+	 * @param first {@code true} if user goes first otherwise {@code false}
 	 */
-	public PlayNaughtsAndCrosses(InputOutput inputOutput) {
+	public PlayNaughtsAndCrossesAi(InputOutput inputOutput, boolean first) {
 		board = new BoardNaughtsAndCrosses();
 		this.inputOutput = inputOutput;
+		this.first = first;
 	}
 
 	@Override
 	public void run() {
-		Piece playerOne = new PieceNaughtsAndCrosses("Cross", true);
-		Piece playerTwo = new PieceNaughtsAndCrosses("Naughts", false);
+		Piece playerOne;
+		Piece playerTwo;
+		boolean playerOneGo;
+		if (first) {
+			playerOne = new PieceNaughtsAndCrosses("Cross", true);
+			playerTwo = new PieceNaughtsAndCrosses("Naughts", false);
 
-		boolean playerOneGo = true;
+			playerOneGo = true;
+		} else {
+			playerTwo = new PieceNaughtsAndCrosses("Cross", false);
+			playerOne = new PieceNaughtsAndCrosses("Naughts", true);
+			playerOneGo = false;
+		}
 
 		while (!completed()) {
 			print();
@@ -50,10 +64,12 @@ public class PlayNaughtsAndCrosses implements Play {
 				}
 			}
 			while (!playerOneGo && !done) {
-				inputOutput.output("Please enter number of place to place position");
-				int place = inputOutput.input();
-				int j = place % 3;
-				int i = (place - j) / 3;
+				inputOutput.output("AI Running");
+				MinMax minMax = new MinMax(board, playerTwo);
+				int[] coord = minMax.coordinates();
+
+				int i = coord[0];
+				int j = coord[1];
 				try {
 					done = board.add(playerTwo, i, j);
 				} catch (Exception e) {
@@ -85,6 +101,7 @@ public class PlayNaughtsAndCrosses implements Play {
 		} else {
 			return true;
 		}
+
 	}
 
 	/**

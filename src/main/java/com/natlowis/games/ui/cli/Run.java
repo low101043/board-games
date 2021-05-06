@@ -1,9 +1,9 @@
-package com.natlowis.ui.cli;
+package com.natlowis.games.ui.cli;
 
-import com.natlowis.connectfour.PlayConnectFour;
-import com.natlowis.interfaces.Play;
-import com.natlowis.naughtsandcrosses.PlayNaughtsAndCrosses;
-import com.natlowis.naughtsandcrosses.PlayNaughtsAndCrossesAi;
+import com.natlowis.games.game.connectfour.PlayConnectFour;
+import com.natlowis.games.game.interfaces.Play;
+import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrosses;
+import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrossesAi;
 
 /**
  * Will control the menu which the user sees

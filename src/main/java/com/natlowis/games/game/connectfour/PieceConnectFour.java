@@ -1,6 +1,6 @@
-package com.natlowis.connectfour;
+package com.natlowis.games.game.connectfour;
 
-import com.natlowis.interfaces.Piece;
+import com.natlowis.games.game.interfaces.Piece;
 
 /**
  * This will contain all the information for a {@link Piece} used by Connect Four  

@@ -1,9 +1,9 @@
-package com.natlowis.naughtsandcrosses.ai;
+package com.natlowis.games.game.naughtsandcrosses.ai;
 
-import com.natlowis.interfaces.Board;
-import com.natlowis.interfaces.Piece;
-import com.natlowis.naughtsandcrosses.BoardNaughtsAndCrosses;
-import com.natlowis.naughtsandcrosses.PieceNaughtsAndCrosses;
+import com.natlowis.games.game.interfaces.Board;
+import com.natlowis.games.game.interfaces.Piece;
+import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
+import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
 /**
  * Will implement the MinMax algorithm for Naughts and Crosses

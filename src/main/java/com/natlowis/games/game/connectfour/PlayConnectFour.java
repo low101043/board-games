@@ -1,8 +1,8 @@
-package com.natlowis.connectfour;
+package com.natlowis.games.game.connectfour;
 
-import com.natlowis.interfaces.Piece;
-import com.natlowis.interfaces.Play;
-import com.natlowis.ui.cli.InputOutput;
+import com.natlowis.games.game.interfaces.Piece;
+import com.natlowis.games.game.interfaces.Play;
+import com.natlowis.games.ui.cli.InputOutput;
 
 /**
  * This will actually Play Connect Four
