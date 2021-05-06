@@ -1,5 +1,6 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
 
@@ -18,12 +19,6 @@ public class BoardNaughtsAndCrosses implements Board {
 	/** The height of the 2D array */
 	private int HEIGHT = 3;
 	
-	/** The blank {@link Piece} */
-	private Piece blank;
-	/** A generic Cross {@link Piece} */
-	private Piece cross;
-	/** A generic Naught {@link Piece} */
-	private Piece naughts;
 
 	/**
 	 * A constructor which created the board
@@ -31,7 +26,7 @@ public class BoardNaughtsAndCrosses implements Board {
 	public BoardNaughtsAndCrosses() {
 		board = new Piece[HEIGHT][WIDTH];
 
-		blank = new PieceNaughtsAndCrosses("Blank", false);
+		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY, false);
 
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
@@ -46,17 +41,17 @@ public class BoardNaughtsAndCrosses implements Board {
 	 * @param blankCopy A copy of the blank {@link Piece}
 	 */
 	public BoardNaughtsAndCrosses(Piece[][] boardCopy, Piece blankCopy) {
-		blank = new PieceNaughtsAndCrosses("Blank", false);
-		cross = new PieceNaughtsAndCrosses("Cross", false);
-		naughts = new PieceNaughtsAndCrosses("Naught", false);
+		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY, false);
+		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS, false);
+		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
 		board = new Piece[HEIGHT][WIDTH];
 		for (int i = 0; i < boardCopy.length; i++) {
 			for (int j = 0; j < boardCopy[i].length; j++) {
-				String type = boardCopy[i][j].type();
-				if (type.equals("Blank")) {
+				Type type = boardCopy[i][j].type();
+				if (type == Type.EMPTY) {
 					board[i][j] = blank;
 
-				} else if (type.equals("Cross")) {
+				} else if (type == Type.CROSS) {
 					board[i][j] = cross;
 				} else {
 					board[i][j] = naughts;
@@ -67,7 +62,7 @@ public class BoardNaughtsAndCrosses implements Board {
 	}
 
 	@Override
-	public Piece won() {
+	public Type won() {
 
 		for (int i = 0; i < HEIGHT; i++) {
 			Piece firstPiece = board[i][0];
@@ -79,8 +74,8 @@ public class BoardNaughtsAndCrosses implements Board {
 				}
 			}
 			// System.out.println(allSame);
-			if (allSame == true && !(firstPiece.type().equals("Blank"))) {
-				return firstPiece;
+			if (allSame == true && firstPiece.type() != Type.EMPTY ) {
+				return firstPiece.type();
 			}
 		}
 
@@ -92,8 +87,8 @@ public class BoardNaughtsAndCrosses implements Board {
 					allSame = false;
 				}
 			}
-			if (allSame == true && !(firstPiece.type().equals("Blank"))) {
-				return firstPiece;
+			if (allSame == true && firstPiece.type() != Type.EMPTY) {
+				return firstPiece.type();
 			}
 		}
 
@@ -103,18 +98,18 @@ public class BoardNaughtsAndCrosses implements Board {
 		Piece bottomLeft = board[2][0];
 		Piece bottomRight = board[2][2];
 
-		if (!(middle.type().equals("Blank")) && middle == topLeft && middle == bottomRight) {
-			return middle;
+		if (middle.type() != Type.EMPTY && middle.type() == topLeft.type() && middle.type() == bottomRight.type()) {
+			return middle.type();
 		}
 
-		if (!(middle.type().equals("Blank")) && middle == topRight && middle == bottomLeft) {
-			return middle;
+		if (middle.type() != Type.EMPTY && middle.type() == topRight.type() && middle.type() == bottomLeft.type()) {
+			return middle.type();
 		}
 
 		boolean allFull = true;
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
-				if (board[i][j] == blank) {
+				if (board[i][j].type() == Type.EMPTY) {
 					allFull = false;
 				}
 			}
@@ -123,7 +118,7 @@ public class BoardNaughtsAndCrosses implements Board {
 		if (allFull) {
 			return null;
 		} else {
-			return blank;
+			return Type.EMPTY;
 		}
 
 	}
@@ -136,7 +131,7 @@ public class BoardNaughtsAndCrosses implements Board {
 		} else if (j < 0 || j >= WIDTH) {
 			return false;
 		}
-		if (board[i][j] == blank) {
+		if (board[i][j].type() == Type.EMPTY) {
 			board[i][j] = input;
 			return true;
 		}
@@ -146,7 +141,7 @@ public class BoardNaughtsAndCrosses implements Board {
 
 	@Override
 	public void remove(Piece input, int i, int j) {
-		board[i][j] = blank;
+		System.out.println("ERROR");;
 
 	}
 
@@ -162,7 +157,7 @@ public class BoardNaughtsAndCrosses implements Board {
 		try {
 			return (BoardNaughtsAndCrosses) super.clone();
 		} catch (CloneNotSupportedException e) {
-			return new BoardNaughtsAndCrosses(board, blank);
+			return new BoardNaughtsAndCrosses(board, new PieceNaughtsAndCrosses(Type.EMPTY, false));
 		}
 	}
 

@@ -2,6 +2,7 @@ package com.natlowis.games.game.naughtsandcrosses.ai;
 
 import java.util.ArrayList;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
@@ -27,11 +28,11 @@ public class GameTreeNaughtsAndCrosses {
 			utility = 0;
 			nextMove = null;
 			return;
-		} else if (node.won().type().equals("Cross")) {
+		} else if (node.won() == Type.CROSS) {
 			utility = -1;
 			nextMove = null;
 			return;
-		} else if (node.won().type().equals("Naught")) {
+		} else if (node.won() == Type.NAUGHT) {
 			utility = 1;
 			nextMove = null;
 			return;
@@ -39,38 +40,38 @@ public class GameTreeNaughtsAndCrosses {
 		if (utility == -2) {
 			for (int i = 0; i < previousBoard.currentBoard().length; i++) {
 				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
-					if (previousBoard.currentBoard()[i][j].type() == "Blank") {
+					if (previousBoard.currentBoard()[i][j].type() == Type.EMPTY) {
 						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) previousBoard.clone();
 						try {
 							newBoard.add(piece, i, j);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
-						if (piece.type().equals("Cross")) {
+						if (piece.type() == Type.CROSS) {
 							if (newBoard == null) {
 								System.out.println("ERROR");
 							}
 							children.add(new GameTreeNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses("Naught", false)));
+									new PieceNaughtsAndCrosses(Type.NAUGHT, false)));
 						} else {
 							if (newBoard == null) {
 								System.out.println("ERROR");
 							}
 							children.add(new GameTreeNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses("Cross", false)));
+									new PieceNaughtsAndCrosses(Type.CROSS, false)));
 						}
 					}
 				}
 			}
 			int v;
-			if (piece.type().equals("Cross")) {
+			if (piece.type() == Type.CROSS) {
 				v = Integer.MAX_VALUE;
 			} else {
 				v = Integer.MIN_VALUE;
 			}
 			for (GameTreeNaughtsAndCrosses child : children) {
 
-				if (piece.type().equals("Cross")) {
+				if (piece.type() == Type.CROSS) {
 
 					if (child.returnUtility() < v) {
 						v = child.returnUtility();

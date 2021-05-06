@@ -1,5 +1,6 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Piece;
 
 /**
@@ -9,14 +10,6 @@ import com.natlowis.games.game.interfaces.Piece;
  */
 public class PieceNaughtsAndCrosses implements Piece {
 
-	/**
-	 * The different kind of pieces you can have
-	 * @author low101043
-	 *
-	 */
-	private enum Type {
-		BLANK, NAUGHT, CROSS
-	}
 
 	/** The {@code Type} of this {@link Piece} */ 
 	private Type type;
@@ -28,39 +21,22 @@ public class PieceNaughtsAndCrosses implements Piece {
 	 * @param typeStr The type of the piece
 	 * @param playerOneChoice {@code true} if player one else {@code false}
 	 */
-	public PieceNaughtsAndCrosses(String typeStr, boolean playerOneChoice) {
+	public PieceNaughtsAndCrosses(Type typeArg, boolean playerOneChoice) {
 
-		if (typeStr == "Blank") {
-			type = Type.BLANK;
+		type = typeArg;
+		if (typeArg == Type.EMPTY) {
+			
 			playerOne = null;
 
-		} else if (typeStr == "Cross") {
-			type = Type.CROSS;
-			if (playerOneChoice == true) {
-				playerOne = true;
-			} else {
-				playerOne = false;
-			}
-		} else {
-			type = Type.NAUGHT;
-			if (playerOneChoice == true) {
-				playerOne = true;
-			} else {
-				playerOne = false;
-			}
+		}
+		else {
+			playerOne = playerOneChoice;
 		}
 	}
 
 	@Override
-	public String type() {
-		// TODO Auto-generated method stub
-		if (type == Type.NAUGHT) {
-			return "Naught";
-		} else if (type == Type.CROSS) {
-			return "Cross";
-		} else {
-			return "Blank";
-		}
+	public Type type() {
+		return type;
 	}
 
 	@Override

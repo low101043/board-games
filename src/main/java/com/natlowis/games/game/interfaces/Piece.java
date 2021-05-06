@@ -1,5 +1,7 @@
 package com.natlowis.games.game.interfaces;
 
+import com.natlowis.games.game.Type;
+
 /** 
  * The {@link Piece}'s used on the {@link Board}
  * @author low101043
@@ -9,9 +11,9 @@ public interface Piece {
 
 	/** 
 	 * The type of the {@link Piece}
-	 * @return The {@link String} format of it
+	 * @return The {@link Type} format of it
 	 */
-	public String type();
+	public Type type();
 
 	/**
 	 * Whether the {@link Piece} is player One

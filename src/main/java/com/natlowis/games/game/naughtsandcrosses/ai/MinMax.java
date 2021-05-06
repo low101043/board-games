@@ -1,5 +1,6 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
@@ -24,10 +25,10 @@ public class MinMax {
 	 */
 	public MinMax(Board board, Piece piece) {
 		PieceNaughtsAndCrosses pieceToUse;
-		if (piece.type().equals("Cross")) {
-			pieceToUse = new PieceNaughtsAndCrosses("Cross", false);
+		if (piece.type() == Type.CROSS) {
+			pieceToUse = new PieceNaughtsAndCrosses(Type.CROSS, false);
 		} else {
-			pieceToUse = new PieceNaughtsAndCrosses("Naught", false);
+			pieceToUse = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
 		}
 		BoardNaughtsAndCrosses boardToUse = new BoardNaughtsAndCrosses(board.currentBoard(), pieceToUse);
 
@@ -37,8 +38,8 @@ public class MinMax {
 
 		for (int i = 0; i < boardToUse.currentBoard().length; i++) {
 			for (int j = 0; j < boardToUse.currentBoard()[i].length; j++) {
-				if (boardToUse.currentBoard()[i][j].type().equals("Blank")
-						&& !nextMove.currentBoard()[i][j].type().equals("Blank")) {
+				if (boardToUse.currentBoard()[i][j].type() == Type.EMPTY
+						&& nextMove.currentBoard()[i][j].type() != Type.EMPTY) {
 					iNext = i;
 					jNext = j;
 					return;

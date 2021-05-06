@@ -1,5 +1,6 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
 import com.natlowis.games.game.interfaces.Play;
@@ -37,13 +38,13 @@ public class PlayNaughtsAndCrossesAi implements Play {
 		Piece playerTwo;
 		boolean playerOneGo;
 		if (first) {
-			playerOne = new PieceNaughtsAndCrosses("Cross", true);
-			playerTwo = new PieceNaughtsAndCrosses("Naughts", false);
+			playerOne = new PieceNaughtsAndCrosses(Type.CROSS, true);
+			playerTwo = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
 
 			playerOneGo = true;
 		} else {
-			playerTwo = new PieceNaughtsAndCrosses("Cross", false);
-			playerOne = new PieceNaughtsAndCrosses("Naughts", true);
+			playerTwo = new PieceNaughtsAndCrosses(Type.CROSS, false);
+			playerOne = new PieceNaughtsAndCrosses(Type.NAUGHT, true);
 			playerOneGo = false;
 		}
 
@@ -90,12 +91,12 @@ public class PlayNaughtsAndCrossesAi implements Play {
 	 */
 	private boolean completed() {
 
-		Piece won = board.won();
+		Type won = board.won();
 
 		// System.out.println(won.type());
 		if (won == null) {
 			return true;
-		} else if (won.type().equals("Blank")) {
+		} else if (won == Type.EMPTY) {
 			return false;
 
 		} else {
@@ -112,10 +113,10 @@ public class PlayNaughtsAndCrossesAi implements Play {
 		Piece[][] boardToOutput = board.currentBoard();
 		for (int i = 0; i < boardToOutput.length; i++) {
 			for (int j = 0; j < boardToOutput[i].length; j++) {
-				if (boardToOutput[i][j].type().equals("Blank")) {
+				if (boardToOutput[i][j].type() == Type.EMPTY) {
 					String place = String.valueOf((i * 3) + j);
 					output += (place + ",");
-				} else if (boardToOutput[i][j].type().equals("Cross")) {
+				} else if (boardToOutput[i][j].type() == Type.CROSS) {
 					output += "x,";
 				} else {
 					output += "o,";

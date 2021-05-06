@@ -1,5 +1,6 @@
 package com.natlowis.games.game.connectfour;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Piece;
 import com.natlowis.games.game.interfaces.Play;
 import com.natlowis.games.ui.cli.InputOutput;
@@ -27,8 +28,8 @@ public class PlayConnectFour implements Play {
 
 	@Override
 	public void run() {
-		Piece playerOne = new PieceConnectFour("Red", true);
-		Piece playerTwo = new PieceConnectFour("Yellow", false);
+		Piece playerOne = new PieceConnectFour(Type.CROSS, true);
+		Piece playerTwo = new PieceConnectFour(Type.NAUGHT, false);
 
 		boolean playerOneGo = true;
 
@@ -71,11 +72,11 @@ public class PlayConnectFour implements Play {
 	 */
 	private boolean completed() {
 
-		Piece won = board.won();
+		Type won = board.won();
 
 		if (won == null) {
 			return true;
-		} else if (won.type().equals("Empty")) {
+		} else if (won == Type.EMPTY) {
 			return false;
 
 		} else {
@@ -92,9 +93,9 @@ public class PlayConnectFour implements Play {
 		Piece[][] boardToOutput = board.currentBoard();
 		for (int i = 0; i < boardToOutput.length; i++) {
 			for (int j = 0; j < boardToOutput[i].length; j++) {
-				if (boardToOutput[i][j].type().equals("Empty")) {
+				if (boardToOutput[i][j].type() == Type.EMPTY) {
 					output += " ,";
-				} else if (boardToOutput[i][j].type().equals("Red")) {
+				} else if (boardToOutput[i][j].type() == Type.CROSS) {
 					output += "x,";
 				} else {
 					output += "o,";

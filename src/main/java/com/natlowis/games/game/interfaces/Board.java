@@ -1,5 +1,7 @@
 package com.natlowis.games.game.interfaces;
 
+import com.natlowis.games.game.Type;
+
 /**
  * An interface which states how to use a {@link Board}
  * @author low101043
@@ -9,9 +11,9 @@ public interface Board {
 
 	/**
 	 * Says whether it has won
-	 * @return The {@link Piece} which has won
+	 * @return The {@link Type} which has won or {@code Type.Empty} if its still not full or {@code null} if its full 
 	 */
-	public Piece won();
+	public Type won();
 
 	/**
 	 * Adds a {@link Piece} to the {@link Board}

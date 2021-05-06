@@ -1,5 +1,6 @@
 package com.natlowis.games.game.connectfour;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
 
@@ -16,8 +17,6 @@ public class BoardConnectFour implements Board {
 	private int WIDTH = 7;
 	/** The Height of the board */
 	private int HEIGHT = 6;
-	/** The Empty {@link Piece} to use */
-	private Piece empty;
 
 	/** 
 	 * A Constructor which created the board and an empty {@link Piece}
@@ -25,7 +24,7 @@ public class BoardConnectFour implements Board {
 	public BoardConnectFour() {
 		board = new Piece[HEIGHT][WIDTH];
 
-		empty = new PieceConnectFour("Empty", false);
+		Piece empty = new PieceConnectFour(Type.EMPTY, false);
 
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
@@ -36,27 +35,26 @@ public class BoardConnectFour implements Board {
 	}
 
 	@Override
-	public Piece won() {
-		// TODO Auto-generated method stub
+	public Type won() {
 
 		// Horizontal
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH - 3; j++) {
 				Piece one = board[i][j];
-				if (one == empty) {
+				if (one.type() == Type.EMPTY) {
 					;
 				} else {
 					boolean allSame = true;
 					int k = 1;
 					while (allSame && k < 4) {
 						Piece next = board[i][j + k];
-						if (one != next) {
+						if (one.type() != next.type()) {
 							allSame = false;
 						}
 						k++;
 					}
 					if (allSame) {
-						return one;
+						return one.type();
 					}
 				}
 			}
@@ -66,7 +64,7 @@ public class BoardConnectFour implements Board {
 		for (int j = 0; j < WIDTH; j++) {
 			for (int i = 0; i < HEIGHT - 3; i++) {
 				Piece one = board[i][j];
-				if (one == empty) {
+				if (one.type() == Type.EMPTY) {
 					;
 				} else {
 
@@ -74,13 +72,13 @@ public class BoardConnectFour implements Board {
 					int k = 1;
 					while (allSame && k < 4) {
 						Piece next = board[i + k][j];
-						if (one != next) {
+						if (one.type() != next.type()) {
 							allSame = false;
 						}
 						k++;
 					}
 					if (allSame) {
-						return one;
+						return one.type();
 					}
 				}
 			}
@@ -94,7 +92,7 @@ public class BoardConnectFour implements Board {
 					;
 				} else {
 					Piece one = board[i][j];
-					if (one == empty) {
+					if (one.type() == Type.EMPTY) {
 						;
 					} else {
 						boolean allSame = true;
@@ -107,7 +105,7 @@ public class BoardConnectFour implements Board {
 							k++;
 						}
 						if (allSame) {
-							return one;
+							return one.type();
 						}
 					}
 				}
@@ -124,20 +122,20 @@ public class BoardConnectFour implements Board {
 				} else {
 
 					Piece one = board[i][j];
-					if (one == empty) {
+					if (one.type() == Type.EMPTY) {
 						;
 					} else {
 						boolean allSame = true;
 						int k = 1;
 						while (allSame && k < 4) {
 							Piece next = board[i + k][j - k];
-							if (one != next) {
+							if (one.type() != next.type()) {
 								allSame = false;
 							}
 							k++;
 						}
 						if (allSame) {
-							return one;
+							return one.type();
 						}
 					}
 				}
@@ -147,8 +145,8 @@ public class BoardConnectFour implements Board {
 		// Check full;
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
-				if (board[i][j] == empty) {
-					return empty;
+				if (board[i][j].type() == Type.EMPTY) {
+					return Type.EMPTY;
 				}
 			}
 		}
@@ -158,7 +156,6 @@ public class BoardConnectFour implements Board {
 
 	@Override
 	public boolean add(Piece input, int i, int j) throws Exception {
-		// TODO Auto-generated method stub
 
 		System.out.println("Error");
 		throw new Exception();
@@ -179,7 +176,7 @@ public class BoardConnectFour implements Board {
 
 		int row = 0;
 		Piece data = board[row][column];
-		while (row < HEIGHT && data == empty) {
+		while (row < HEIGHT && data.type() == Type.EMPTY) {
 			row++;
 			// System.out.println(row);
 			if (row < HEIGHT) {

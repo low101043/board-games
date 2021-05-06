@@ -1,5 +1,6 @@
 package com.natlowis.games.game.connectfour;
 
+import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Piece;
 
 /**
@@ -9,14 +10,6 @@ import com.natlowis.games.game.interfaces.Piece;
  */
 public class PieceConnectFour implements Piece {
 
-	/**
-	 * The type of a {@link Piece}
-	 * @author low101043
-	 *
-	 */
-	private enum Type {
-		RED, YELLOW, EMPTY
-	}
 
 	/** The {@link Type} of the {@link Piece} */
 	private Type type;
@@ -28,39 +21,22 @@ public class PieceConnectFour implements Piece {
 	 * @param typeStr The type it will be
 	 * @param playerOneChoice Whether player one uses it 
 	 */
-	public PieceConnectFour(String typeStr, boolean playerOneChoice) {
+	public PieceConnectFour(Type typeArg, boolean playerOneChoice) {
 
-		if (typeStr == "Empty") {
-			type = Type.EMPTY;
+		type = typeArg;
+		if (type == Type.EMPTY) {
 			playerOne = null;
-
-		} else if (typeStr == "Yellow") {
-			type = Type.YELLOW;
-			if (playerOneChoice == true) {
-				playerOne = true;
-			} else {
-				playerOne = false;
-			}
-		} else {
-			type = Type.RED;
-			if (playerOneChoice == true) {
-				playerOne = true;
-			} else {
-				playerOne = false;
-			}
 		}
+		else {
+			playerOne = playerOneChoice;
+
+		} 
 	}
 
 	@Override
-	public String type() {
-		// TODO Auto-generated method stub
-		if (type == Type.YELLOW) {
-			return "Yellow";
-		} else if (type == Type.RED) {
-			return "Red";
-		} else {
-			return "Empty";
-		}
+	public Type type() {
+		
+		return type;
 	}
 
 	@Override
