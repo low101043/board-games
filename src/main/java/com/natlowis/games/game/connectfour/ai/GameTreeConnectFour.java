@@ -1,8 +1,10 @@
-package com.natlowis.games.game.naughtsandcrosses.ai;
+package com.natlowis.games.game.connectfour.ai;
 
 import java.util.ArrayList;
 
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.connectfour.BoardConnectFour;
+import com.natlowis.games.game.connectfour.PieceConnectFour;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
@@ -11,23 +13,23 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  * @author low101043
  *
  */
-public class GameTreeNaughtsAndCrosses {
+public class GameTreeConnectFour {
 
-	/** The {@link BoardNaughtsAndCrosses} which is represented by this node */
-	private BoardNaughtsAndCrosses node;
+	/** The {@link BoardConnectFour} which is represented by this node */
+	private BoardConnectFour node;
 	/** The utility of this node.  -2 if not set otherwise -1,0,1 */
 	private int utility = -2;
 	/** The children of this node */
-	private ArrayList<GameTreeNaughtsAndCrosses> children = new ArrayList<GameTreeNaughtsAndCrosses>();
+	private ArrayList<GameTreeConnectFour> children = new ArrayList<GameTreeConnectFour>();
 	/** The best next move to do */
-	private BoardNaughtsAndCrosses nextMove;
+	private BoardConnectFour nextMove;
 
 	/**
 	 * The constructor
 	 * @param previousBoard The Parent of the node
-	 * @param piece The {@link PieceNaughtsAndCrosses} to add next
+	 * @param piece The {@link PieceConnectFour} to add next
 	 */
-	public GameTreeNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece) {
+	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece) {
 		node = previousBoard;
 		if (node.won() == null) {
 			utility = 0;
@@ -43,12 +45,16 @@ public class GameTreeNaughtsAndCrosses {
 			return;
 		}
 		if (utility == -2) {
-			for (int i = 0; i < previousBoard.currentBoard().length; i++) {
-				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
-					if (previousBoard.currentBoard()[i][j].type() == Type.EMPTY) {
-						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) previousBoard.clone();
+			
+			for (int i = 0; i < previousBoard.currentBoard()[0].length; i++) {
+				
+					if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
+						BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
 						try {
-							newBoard.add(piece, i, j);
+							boolean completed = newBoard.add(piece, i);
+							if (!completed) {
+								System.out.println("ERROR");
+							}
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -56,14 +62,14 @@ public class GameTreeNaughtsAndCrosses {
 							if (newBoard == null) {
 								System.out.println("ERROR");
 							}
-							children.add(new GameTreeNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.NAUGHT, false)));
+							children.add(new GameTreeConnectFour(newBoard,
+									new PieceConnectFour(Type.NAUGHT, false)));
 						} else {
 							if (newBoard == null) {
 								System.out.println("ERROR");
 							}
-							children.add(new GameTreeNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.CROSS, false)));
+							children.add(new GameTreeConnectFour(newBoard,
+									new PieceConnectFour(Type.CROSS, false)));
 						}
 					}
 				}
@@ -74,7 +80,7 @@ public class GameTreeNaughtsAndCrosses {
 			} else {
 				v = Integer.MIN_VALUE;
 			}
-			for (GameTreeNaughtsAndCrosses child : children) {
+			for (GameTreeConnectFour child : children) {
 
 				if (piece.type() == Type.CROSS) {
 
@@ -92,7 +98,7 @@ public class GameTreeNaughtsAndCrosses {
 				}
 			}
 			utility = v;
-		}
+		
 
 	}
 
@@ -116,7 +122,7 @@ public class GameTreeNaughtsAndCrosses {
 	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
 	 * @return The {@link BoardNaughtsAndCrosses}
 	 */
-	public BoardNaughtsAndCrosses getBoard() {
+	public BoardConnectFour getBoard() {
 		return node;
 	}
 
@@ -124,7 +130,7 @@ public class GameTreeNaughtsAndCrosses {
 	 * Gets the next move to be done by this Node
 	 * @return The {@link BoardNaughtsAndCrosses} which is the next move
 	 */
-	public BoardNaughtsAndCrosses nextMove() {
+	public BoardConnectFour nextMove() {
 		return nextMove;
 	}
 }

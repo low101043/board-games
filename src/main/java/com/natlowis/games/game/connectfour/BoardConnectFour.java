@@ -3,6 +3,8 @@ package com.natlowis.games.game.connectfour;
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
+import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
+import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
 /**
  * This contains all the information of a {@link Board} for Connect Four
@@ -32,6 +34,32 @@ public class BoardConnectFour implements Board {
 			}
 		}
 
+	}
+	
+	/**
+	 * A constructor which is used to create a {@code GameTree}
+	 * @param boardCopy A copy of the previous board
+	 * @param blankCopy A copy of the blank {@link Piece}
+	 */
+	public BoardConnectFour(Piece[][] boardCopy, Piece blankCopy) {
+		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY, false);
+		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS, false);
+		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
+		board = new Piece[HEIGHT][WIDTH];
+		for (int i = 0; i < boardCopy.length; i++) {
+			for (int j = 0; j < boardCopy[i].length; j++) {
+				Type type = boardCopy[i][j].type();
+				if (type == Type.EMPTY) {
+					board[i][j] = blank;
+
+				} else if (type == Type.CROSS) {
+					board[i][j] = cross;
+				} else {
+					board[i][j] = naughts;
+				}
+			}
+
+		}
 	}
 
 	@Override
@@ -204,6 +232,16 @@ public class BoardConnectFour implements Board {
 	public Piece[][] currentBoard() {
 		
 		return board; // SHOULD BE DEEPCOPY
+	}
+	
+	@Override
+	public Object clone() {
+
+		try {
+			return (BoardConnectFour) super.clone();
+		} catch (CloneNotSupportedException e) {
+			return new BoardConnectFour(board, new PieceConnectFour(Type.EMPTY, false));
+		}
 	}
 
 }
