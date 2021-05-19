@@ -4,6 +4,7 @@ import com.natlowis.games.ui.cli.Run;
 
 /**
  * Entrypoint of the Game
+ * 
  * @author low101043
  *
  */

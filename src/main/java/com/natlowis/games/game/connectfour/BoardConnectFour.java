@@ -3,11 +3,11 @@ package com.natlowis.games.game.connectfour;
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
-import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
 /**
  * This contains all the information of a {@link Board} for Connect Four
+ * 
  * @author low101043
  *
  */
@@ -20,7 +20,7 @@ public class BoardConnectFour implements Board {
 	/** The Height of the board */
 	private int HEIGHT = 6;
 
-	/** 
+	/**
 	 * A Constructor which created the board and an empty {@link Piece}
 	 */
 	public BoardConnectFour() {
@@ -35,9 +35,10 @@ public class BoardConnectFour implements Board {
 		}
 
 	}
-	
+
 	/**
 	 * A constructor which is used to create a {@code GameTree}
+	 * 
 	 * @param boardCopy A copy of the previous board
 	 * @param blankCopy A copy of the blank {@link Piece}
 	 */
@@ -191,7 +192,8 @@ public class BoardConnectFour implements Board {
 
 	/**
 	 * Will add a {@link Piece} to the board
-	 * @param input The input {@link Piece} to use
+	 * 
+	 * @param input  The input {@link Piece} to use
 	 * @param column The column number to add at
 	 * @return {@code true} if it was added otherwise {@code false}
 	 * @throws Exception ??
@@ -230,10 +232,10 @@ public class BoardConnectFour implements Board {
 
 	@Override
 	public Piece[][] currentBoard() {
-		
+
 		return board; // SHOULD BE DEEPCOPY
 	}
-	
+
 	@Override
 	public Object clone() {
 

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 /**
  * Handles all the input and output uses of the game
+ * 
  * @author low101043
  *
  */
@@ -21,6 +22,7 @@ public class InputOutput {
 
 	/**
 	 * To get the input from the screen
+	 * 
 	 * @return An {@code int} which was last entered by the user
 	 */
 	public int input() {
@@ -31,6 +33,7 @@ public class InputOutput {
 
 	/**
 	 * Outputs the argument to the screen
+	 * 
 	 * @param output The {@link String} which needs to be outputted
 	 */
 	public void output(String output) {

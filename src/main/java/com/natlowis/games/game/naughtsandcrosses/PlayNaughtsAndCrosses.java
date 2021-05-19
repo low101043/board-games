@@ -8,6 +8,7 @@ import com.natlowis.games.ui.cli.InputOutput;
 
 /**
  * A Class which implements {@link Play} for a 2 player Naughts & Crosses game
+ * 
  * @author low101043
  *
  */
@@ -19,7 +20,8 @@ public class PlayNaughtsAndCrosses implements Play {
 	private InputOutput inputOutput;
 
 	/**
-	 * Normal Constructor 
+	 * Normal Constructor
+	 * 
 	 * @param inputOutput The {@link InputOutput} to use
 	 */
 	public PlayNaughtsAndCrosses(InputOutput inputOutput) {
@@ -71,6 +73,7 @@ public class PlayNaughtsAndCrosses implements Play {
 
 	/**
 	 * Checks if the game is completed
+	 * 
 	 * @return {@code true} if the game is completed otherwise {@code false}
 	 */
 	private boolean completed() {

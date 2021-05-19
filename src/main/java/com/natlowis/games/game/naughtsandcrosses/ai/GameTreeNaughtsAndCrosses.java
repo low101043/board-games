@@ -8,6 +8,7 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
 /**
  * Creates the GameTree for a Naughts and Crosses Game
+ * 
  * @author low101043
  *
  */
@@ -15,7 +16,7 @@ public class GameTreeNaughtsAndCrosses {
 
 	/** The {@link BoardNaughtsAndCrosses} which is represented by this node */
 	private BoardNaughtsAndCrosses node;
-	/** The utility of this node.  -2 if not set otherwise -1,0,1 */
+	/** The utility of this node. -2 if not set otherwise -1,0,1 */
 	private int utility = -2;
 	/** The children of this node */
 	private ArrayList<GameTreeNaughtsAndCrosses> children = new ArrayList<GameTreeNaughtsAndCrosses>();
@@ -24,8 +25,9 @@ public class GameTreeNaughtsAndCrosses {
 
 	/**
 	 * The constructor
+	 * 
 	 * @param previousBoard The Parent of the node
-	 * @param piece The {@link PieceNaughtsAndCrosses} to add next
+	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
 	 */
 	public GameTreeNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece) {
 		node = previousBoard;
@@ -98,6 +100,7 @@ public class GameTreeNaughtsAndCrosses {
 
 	/**
 	 * Sets the new utility value
+	 * 
 	 * @param newUtility The new value
 	 */
 	public void setUtility(int newUtility) {
@@ -106,6 +109,7 @@ public class GameTreeNaughtsAndCrosses {
 
 	/**
 	 * Gets the current Utility value
+	 * 
 	 * @return
 	 */
 	public int returnUtility() {
@@ -114,6 +118,7 @@ public class GameTreeNaughtsAndCrosses {
 
 	/**
 	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
+	 * 
 	 * @return The {@link BoardNaughtsAndCrosses}
 	 */
 	public BoardNaughtsAndCrosses getBoard() {
@@ -122,6 +127,7 @@ public class GameTreeNaughtsAndCrosses {
 
 	/**
 	 * Gets the next move to be done by this Node
+	 * 
 	 * @return The {@link BoardNaughtsAndCrosses} which is the next move
 	 */
 	public BoardNaughtsAndCrosses nextMove() {

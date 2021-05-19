@@ -1,12 +1,14 @@
 package com.natlowis.games.game.connectfour;
 
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
 import com.natlowis.games.game.interfaces.Play;
 import com.natlowis.games.ui.cli.InputOutput;
 
 /**
  * This will actually Play Connect Four
+ * 
  * @author low101043
  *
  */
@@ -19,6 +21,7 @@ public class PlayConnectFour implements Play {
 
 	/**
 	 * A constructor which creates the game
+	 * 
 	 * @param inputOutput The {@link InputOutput} to use
 	 */
 	public PlayConnectFour(InputOutput inputOutput) {
@@ -68,6 +71,7 @@ public class PlayConnectFour implements Play {
 
 	/**
 	 * Whether the game has been completed
+	 * 
 	 * @return {@code true} if the game is finished otherwise false
 	 */
 	private boolean completed() {

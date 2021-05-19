@@ -1,14 +1,15 @@
 package com.natlowis.games.game.connectfour;
 
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.connectfour.ai.MinMax;
 import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
 import com.natlowis.games.game.interfaces.Play;
-import com.natlowis.games.game.connectfour.ai.MinMax;
 import com.natlowis.games.ui.cli.InputOutput;
 
 /**
  * Plays Naughts and crosses with an AI player
+ * 
  * @author low101043
  *
  */
@@ -23,8 +24,9 @@ public class PlayConnectFourAi implements Play {
 
 	/**
 	 * Basic Constructor
+	 * 
 	 * @param inputOutput The {@link InputOutput} to use
-	 * @param first {@code true} if user goes first otherwise {@code false}
+	 * @param first       {@code true} if user goes first otherwise {@code false}
 	 */
 	public PlayConnectFourAi(InputOutput inputOutput, boolean first) {
 		board = new BoardConnectFour();
@@ -85,6 +87,7 @@ public class PlayConnectFourAi implements Play {
 
 	/**
 	 * Checks if the game is completed
+	 * 
 	 * @return {@code true} if the game is completed otherwise {@code false}
 	 */
 	private boolean completed() {

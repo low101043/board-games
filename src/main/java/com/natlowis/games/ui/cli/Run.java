@@ -1,13 +1,13 @@
 package com.natlowis.games.ui.cli;
 
 import com.natlowis.games.game.connectfour.PlayConnectFour;
-import com.natlowis.games.game.connectfour.PlayConnectFourAi;
 import com.natlowis.games.game.interfaces.Play;
 import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrossesAi;
 
 /**
  * Will control the menu which the user sees
+ * 
  * @author low101043
  *
  */
@@ -72,6 +72,7 @@ public class Run {
 
 	/**
 	 * Gets the input for the menu
+	 * 
 	 * @return The {@code int} which the user has given
 	 */
 	private int menu() {
@@ -119,7 +120,7 @@ public class Run {
 			inputOutput.output("Please enter an actual choice");
 			choice = inputOutput.input();
 		}
-		
+
 		Play naughtsAndCrosses;
 		if (choice == 1) {
 			naughtsAndCrosses = new PlayNaughtsAndCrossesAi(inputOutput, true);

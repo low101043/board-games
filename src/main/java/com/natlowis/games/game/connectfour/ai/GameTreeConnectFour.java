@@ -6,10 +6,10 @@ import com.natlowis.games.game.Type;
 import com.natlowis.games.game.connectfour.BoardConnectFour;
 import com.natlowis.games.game.connectfour.PieceConnectFour;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
-import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
 /**
  * Creates the GameTree for a Naughts and Crosses Game
+ * 
  * @author low101043
  *
  */
@@ -17,7 +17,7 @@ public class GameTreeConnectFour {
 
 	/** The {@link BoardConnectFour} which is represented by this node */
 	private BoardConnectFour node;
-	/** The utility of this node.  -2 if not set otherwise -1,0,1 */
+	/** The utility of this node. -2 if not set otherwise -1,0,1 */
 	private int utility = -2;
 	/** The children of this node */
 	private ArrayList<GameTreeConnectFour> children = new ArrayList<GameTreeConnectFour>();
@@ -26,8 +26,9 @@ public class GameTreeConnectFour {
 
 	/**
 	 * The constructor
+	 * 
 	 * @param previousBoard The Parent of the node
-	 * @param piece The {@link PieceConnectFour} to add next
+	 * @param piece         The {@link PieceConnectFour} to add next
 	 */
 	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece) {
 		node = previousBoard;
@@ -45,65 +46,63 @@ public class GameTreeConnectFour {
 			return;
 		}
 		if (utility == -2) {
-			
+
 			for (int i = 0; i < previousBoard.currentBoard()[0].length; i++) {
-				
-					if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
-						BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
-						try {
-							boolean completed = newBoard.add(piece, i);
-							if (!completed) {
-								System.out.println("ERROR");
-							}
-						} catch (Exception e) {
-							e.printStackTrace();
+
+				if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
+					BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
+					try {
+						boolean completed = newBoard.add(piece, i);
+						if (!completed) {
+							System.out.println("ERROR");
 						}
-						if (piece.type() == Type.CROSS) {
-							if (newBoard == null) {
-								System.out.println("ERROR");
-							}
-							children.add(new GameTreeConnectFour(newBoard,
-									new PieceConnectFour(Type.NAUGHT, false)));
-						} else {
-							if (newBoard == null) {
-								System.out.println("ERROR");
-							}
-							children.add(new GameTreeConnectFour(newBoard,
-									new PieceConnectFour(Type.CROSS, false)));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					if (piece.type() == Type.CROSS) {
+						if (newBoard == null) {
+							System.out.println("ERROR");
 						}
+						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT, false)));
+					} else {
+						if (newBoard == null) {
+							System.out.println("ERROR");
+						}
+						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS, false)));
 					}
 				}
 			}
-			int v;
+		}
+		int v;
+		if (piece.type() == Type.CROSS) {
+			v = Integer.MAX_VALUE;
+		} else {
+			v = Integer.MIN_VALUE;
+		}
+		for (GameTreeConnectFour child : children) {
+
 			if (piece.type() == Type.CROSS) {
-				v = Integer.MAX_VALUE;
+
+				if (child.returnUtility() < v) {
+					v = child.returnUtility();
+					nextMove = child.getBoard();
+				}
+
 			} else {
-				v = Integer.MIN_VALUE;
-			}
-			for (GameTreeConnectFour child : children) {
 
-				if (piece.type() == Type.CROSS) {
-
-					if (child.returnUtility() < v) {
-						v = child.returnUtility();
-						nextMove = child.getBoard();
-					}
-
-				} else {
-
-					if (child.returnUtility() > v) {
-						v = child.returnUtility();
-						nextMove = child.getBoard();
-					}
+				if (child.returnUtility() > v) {
+					v = child.returnUtility();
+					nextMove = child.getBoard();
 				}
 			}
-			utility = v;
-		
+		}
+		utility = v;
 
 	}
 
 	/**
 	 * Sets the new utility value
+	 * 
 	 * @param newUtility The new value
 	 */
 	public void setUtility(int newUtility) {
@@ -112,6 +111,7 @@ public class GameTreeConnectFour {
 
 	/**
 	 * Gets the current Utility value
+	 * 
 	 * @return
 	 */
 	public int returnUtility() {
@@ -120,6 +120,7 @@ public class GameTreeConnectFour {
 
 	/**
 	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
+	 * 
 	 * @return The {@link BoardNaughtsAndCrosses}
 	 */
 	public BoardConnectFour getBoard() {
@@ -128,6 +129,7 @@ public class GameTreeConnectFour {
 
 	/**
 	 * Gets the next move to be done by this Node
+	 * 
 	 * @return The {@link BoardNaughtsAndCrosses} which is the next move
 	 */
 	public BoardConnectFour nextMove() {

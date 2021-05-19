@@ -6,6 +6,7 @@ import com.natlowis.games.game.interfaces.Piece;
 
 /**
  * This will hold the game used in Naughts and Crosses
+ * 
  * @author low101043
  *
  */
@@ -13,12 +14,11 @@ public class BoardNaughtsAndCrosses implements Board {
 
 	/** This is the board which contains the {@link Piece}s */
 	private Piece[][] board;
-	
+
 	/** The width of the 2D array */
 	private int WIDTH = 3;
 	/** The height of the 2D array */
 	private int HEIGHT = 3;
-	
 
 	/**
 	 * A constructor which created the board
@@ -37,6 +37,7 @@ public class BoardNaughtsAndCrosses implements Board {
 
 	/**
 	 * A constructor which is used to create a {@code GameTree}
+	 * 
 	 * @param boardCopy A copy of the previous board
 	 * @param blankCopy A copy of the blank {@link Piece}
 	 */
@@ -74,7 +75,7 @@ public class BoardNaughtsAndCrosses implements Board {
 				}
 			}
 			// System.out.println(allSame);
-			if (allSame == true && firstPiece.type() != Type.EMPTY ) {
+			if (allSame == true && firstPiece.type() != Type.EMPTY) {
 				return firstPiece.type();
 			}
 		}
@@ -141,7 +142,8 @@ public class BoardNaughtsAndCrosses implements Board {
 
 	@Override
 	public void remove(Piece input, int i, int j) {
-		System.out.println("ERROR");;
+		System.out.println("ERROR");
+		;
 
 	}
 
