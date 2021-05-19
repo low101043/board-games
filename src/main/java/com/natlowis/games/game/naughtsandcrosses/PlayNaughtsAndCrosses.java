@@ -31,8 +31,8 @@ public class PlayNaughtsAndCrosses implements Play {
 
 	@Override
 	public void run() {
-		Piece playerOne = new PieceNaughtsAndCrosses(Type.CROSS, true);
-		Piece playerTwo = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
+		Piece playerOne = new PieceNaughtsAndCrosses(Type.CROSS);
+		Piece playerTwo = new PieceNaughtsAndCrosses(Type.NAUGHT);
 
 		boolean playerOneGo = true;
 

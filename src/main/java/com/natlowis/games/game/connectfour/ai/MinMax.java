@@ -26,9 +26,9 @@ public class MinMax {
 	public MinMax(Board board, Piece piece) {
 		PieceConnectFour pieceToUse;
 		if (piece.type() == Type.CROSS) {
-			pieceToUse = new PieceConnectFour(Type.CROSS, false);
+			pieceToUse = new PieceConnectFour(Type.CROSS);
 		} else {
-			pieceToUse = new PieceConnectFour(Type.NAUGHT, false);
+			pieceToUse = new PieceConnectFour(Type.NAUGHT);
 		}
 		BoardConnectFour boardToUse = new BoardConnectFour(board.currentBoard(), pieceToUse);
 

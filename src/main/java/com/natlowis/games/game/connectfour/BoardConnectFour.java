@@ -26,7 +26,7 @@ public class BoardConnectFour implements Board {
 	public BoardConnectFour() {
 		board = new Piece[HEIGHT][WIDTH];
 
-		Piece empty = new PieceConnectFour(Type.EMPTY, false);
+		Piece empty = new PieceConnectFour(Type.EMPTY);
 
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
@@ -43,9 +43,9 @@ public class BoardConnectFour implements Board {
 	 * @param blankCopy A copy of the blank {@link Piece}
 	 */
 	public BoardConnectFour(Piece[][] boardCopy, Piece blankCopy) {
-		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY, false);
-		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS, false);
-		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
+		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY);
+		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS);
+		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT);
 		board = new Piece[HEIGHT][WIDTH];
 		for (int i = 0; i < boardCopy.length; i++) {
 			for (int j = 0; j < boardCopy[i].length; j++) {
@@ -242,7 +242,7 @@ public class BoardConnectFour implements Board {
 		try {
 			return (BoardConnectFour) super.clone();
 		} catch (CloneNotSupportedException e) {
-			return new BoardConnectFour(board, new PieceConnectFour(Type.EMPTY, false));
+			return new BoardConnectFour(board, new PieceConnectFour(Type.EMPTY));
 		}
 	}
 

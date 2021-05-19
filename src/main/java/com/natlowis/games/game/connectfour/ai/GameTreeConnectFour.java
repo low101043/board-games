@@ -63,12 +63,12 @@ public class GameTreeConnectFour {
 						if (newBoard == null) {
 							System.out.println("ERROR");
 						}
-						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT, false)));
+						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT)));
 					} else {
 						if (newBoard == null) {
 							System.out.println("ERROR");
 						}
-						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS, false)));
+						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS)));
 					}
 				}
 			}

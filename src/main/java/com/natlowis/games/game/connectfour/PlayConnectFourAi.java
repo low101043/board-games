@@ -40,13 +40,13 @@ public class PlayConnectFourAi implements Play {
 		Piece playerTwo;
 		boolean playerOneGo;
 		if (first) {
-			playerOne = new PieceConnectFour(Type.CROSS, true);
-			playerTwo = new PieceConnectFour(Type.NAUGHT, false);
+			playerOne = new PieceConnectFour(Type.CROSS);
+			playerTwo = new PieceConnectFour(Type.NAUGHT);
 
 			playerOneGo = true;
 		} else {
-			playerTwo = new PieceConnectFour(Type.CROSS, false);
-			playerOne = new PieceConnectFour(Type.NAUGHT, true);
+			playerTwo = new PieceConnectFour(Type.CROSS);
+			playerOne = new PieceConnectFour(Type.NAUGHT);
 			playerOneGo = false;
 		}
 

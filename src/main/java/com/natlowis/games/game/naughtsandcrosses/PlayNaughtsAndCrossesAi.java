@@ -40,13 +40,13 @@ public class PlayNaughtsAndCrossesAi implements Play {
 		Piece playerTwo;
 		boolean playerOneGo;
 		if (first) {
-			playerOne = new PieceNaughtsAndCrosses(Type.CROSS, true);
-			playerTwo = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
+			playerOne = new PieceNaughtsAndCrosses(Type.CROSS);
+			playerTwo = new PieceNaughtsAndCrosses(Type.NAUGHT);
 
 			playerOneGo = true;
 		} else {
-			playerTwo = new PieceNaughtsAndCrosses(Type.CROSS, false);
-			playerOne = new PieceNaughtsAndCrosses(Type.NAUGHT, true);
+			playerTwo = new PieceNaughtsAndCrosses(Type.CROSS);
+			playerOne = new PieceNaughtsAndCrosses(Type.NAUGHT);
 			playerOneGo = false;
 		}
 

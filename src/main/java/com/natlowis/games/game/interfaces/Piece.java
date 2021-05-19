@@ -17,10 +17,4 @@ public interface Piece {
 	 */
 	public Type type();
 
-	/**
-	 * Whether the {@link Piece} is player One
-	 * 
-	 * @return {@code true} if they are Player one otherwise {@code false}
-	 */
-	public boolean playerOne();
 }

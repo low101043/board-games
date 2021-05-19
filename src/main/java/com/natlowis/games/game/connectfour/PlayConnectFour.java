@@ -31,8 +31,8 @@ public class PlayConnectFour implements Play {
 
 	@Override
 	public void run() {
-		Piece playerOne = new PieceConnectFour(Type.CROSS, true);
-		Piece playerTwo = new PieceConnectFour(Type.NAUGHT, false);
+		Piece playerOne = new PieceConnectFour(Type.CROSS);
+		Piece playerTwo = new PieceConnectFour(Type.NAUGHT);
 
 		boolean playerOneGo = true;
 

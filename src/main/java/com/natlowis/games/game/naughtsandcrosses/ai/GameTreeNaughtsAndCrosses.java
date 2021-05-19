@@ -58,14 +58,14 @@ public class GameTreeNaughtsAndCrosses {
 							if (newBoard == null) {
 								System.out.println("ERROR");
 							}
-							children.add(new GameTreeNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.NAUGHT, false)));
+							children.add(
+									new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.NAUGHT)));
 						} else {
 							if (newBoard == null) {
 								System.out.println("ERROR");
 							}
-							children.add(new GameTreeNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.CROSS, false)));
+							children.add(
+									new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.CROSS)));
 						}
 					}
 				}

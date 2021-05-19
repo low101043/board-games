@@ -28,9 +28,9 @@ public class MinMax {
 	public MinMax(Board board, Piece piece) {
 		PieceNaughtsAndCrosses pieceToUse;
 		if (piece.type() == Type.CROSS) {
-			pieceToUse = new PieceNaughtsAndCrosses(Type.CROSS, false);
+			pieceToUse = new PieceNaughtsAndCrosses(Type.CROSS);
 		} else {
-			pieceToUse = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
+			pieceToUse = new PieceNaughtsAndCrosses(Type.NAUGHT);
 		}
 		BoardNaughtsAndCrosses boardToUse = new BoardNaughtsAndCrosses(board.currentBoard(), pieceToUse);
 

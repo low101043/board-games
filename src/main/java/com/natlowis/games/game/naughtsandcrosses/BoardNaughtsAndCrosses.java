@@ -26,7 +26,7 @@ public class BoardNaughtsAndCrosses implements Board {
 	public BoardNaughtsAndCrosses() {
 		board = new Piece[HEIGHT][WIDTH];
 
-		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY, false);
+		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY);
 
 		for (int i = 0; i < HEIGHT; i++) {
 			for (int j = 0; j < WIDTH; j++) {
@@ -42,9 +42,9 @@ public class BoardNaughtsAndCrosses implements Board {
 	 * @param blankCopy A copy of the blank {@link Piece}
 	 */
 	public BoardNaughtsAndCrosses(Piece[][] boardCopy, Piece blankCopy) {
-		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY, false);
-		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS, false);
-		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT, false);
+		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY);
+		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS);
+		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT);
 		board = new Piece[HEIGHT][WIDTH];
 		for (int i = 0; i < boardCopy.length; i++) {
 			for (int j = 0; j < boardCopy[i].length; j++) {
@@ -159,7 +159,7 @@ public class BoardNaughtsAndCrosses implements Board {
 		try {
 			return (BoardNaughtsAndCrosses) super.clone();
 		} catch (CloneNotSupportedException e) {
-			return new BoardNaughtsAndCrosses(board, new PieceNaughtsAndCrosses(Type.EMPTY, false));
+			return new BoardNaughtsAndCrosses(board, new PieceNaughtsAndCrosses(Type.EMPTY));
 		}
 	}
 
