@@ -56,7 +56,7 @@ public class PlayConnectFourAi implements Play {
 			boolean done = false;
 			while (playerOneGo && !done) {
 				inputOutput.output("Please enter which row you want to choose");
-				int i = inputOutput.input();
+				int i = inputOutput.input("Please enter which row you want to choose");
 				done = board.add(playerOne, i);
 
 			}
