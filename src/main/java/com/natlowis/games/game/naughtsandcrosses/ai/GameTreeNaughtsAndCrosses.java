@@ -20,18 +20,14 @@ public class GameTreeNaughtsAndCrosses {
 	private int utility = -2;
 	/** The best next move to do */
 	private BoardNaughtsAndCrosses nextMove = null;
-	/** whether maxAgent was set */
-	private boolean max = false;
+	
 	/**
 	 * The constructor
 	 * 
 	 * @param previousBoard The Parent of the node
 	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
 	 */
-	public GameTreeNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece, Boolean maxAgent, Integer vAbove) {
-		if (maxAgent != null) {
-			max = true;
-		}
+	public GameTreeNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece, int alpha, int beta) {
 		node = previousBoard;
 		if (node.won() == null) {
 			utility = 0;
@@ -46,16 +42,13 @@ public class GameTreeNaughtsAndCrosses {
 			nextMove = null;
 			return;
 		}
-		
 		int v;
 		if (piece.type() == Type.CROSS) {
 			v = Integer.MAX_VALUE;
-			
-		} else {
-			v = Integer.MIN_VALUE;
-			
 		}
-		
+		else {
+			v = Integer.MIN_VALUE;
+		}
 		if (utility == -2) {
 			for (int i = 0; i < previousBoard.currentBoard().length; i++) {
 				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
@@ -66,70 +59,32 @@ public class GameTreeNaughtsAndCrosses {
 
 						if (piece.type() == Type.CROSS) {
 							
-							GameTreeNaughtsAndCrosses gt = new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.NAUGHT), maxAgent, v); 
-
+							
+							GameTreeNaughtsAndCrosses gt = new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta); 
+							
 										
-							if (max == false) {
-								maxAgent = false;
-								if (gt.returnUtility() < v) {
-									v = gt.returnUtility();
-									nextMove = gt.getBoard();
-								}
-								vAbove = v;
-								
+							if (gt.returnUtility() < v) {
+								nextMove = gt.getBoard();
+								v = gt.returnUtility();
 							}
-							else {
-								if (maxAgent == true) {
-									if (v < vAbove) {
-										if (gt.returnUtility() < v) {
-											v = gt.returnUtility();
-											nextMove = gt.getBoard();
-										}
-									}
-									
-								}
-								else {
-									if (v > vAbove) {
-										if (gt.returnUtility() < v) {
-											v = gt.returnUtility();
-											nextMove = gt.getBoard();
-										}
-									}
-								}
+							beta = Math.min(beta, v);
 								
+							if (beta <= alpha) {
+								i = previousBoard.currentBoard().length - 1;
+								j = previousBoard.currentBoard()[0].length + 5;
 							}
 						} else {
 
-							GameTreeNaughtsAndCrosses gt = new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.CROSS), maxAgent, v); 
-							
-							if (max == false) {
-								maxAgent = true;
-								if (gt.returnUtility() > v) {
-									v = gt.returnUtility();
-									nextMove = gt.getBoard();
-								}
-								vAbove = v;
-								
+							GameTreeNaughtsAndCrosses gt = new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.CROSS),alpha, beta); 
+							if (gt.returnUtility() > v) {
+								nextMove = gt.getBoard();
+								v = gt.returnUtility();
 							}
-							else {
-								if (maxAgent == true) {
-									if (v < vAbove) {
-										if (gt.returnUtility() > v) {
-											v = gt.returnUtility();
-											nextMove = gt.getBoard();
-										}
-									}
-									
-								}
-								else {
-									if (v > vAbove) {
-										if (gt.returnUtility() > v) {
-											v = gt.returnUtility();
-											nextMove = gt.getBoard();
-										}
-									}
-								}
-								
+							alpha = Math.max(alpha, v);
+							
+							if (beta <= alpha) {
+								i = previousBoard.currentBoard().length -1;
+								j = previousBoard.currentBoard()[0].length + 5;
 							}
 						}
 					}
