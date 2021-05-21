@@ -61,7 +61,6 @@ public class Run {
 	 * Runs Connect 4
 	 */
 	private void connectFour() {
-		// TODO Auto-generated method stub
 		inputOutput.output("Welcome to the Two Player version of Connect Four.\n\nSingle Player coming soon");
 		inputOutput.output("Crosses go first\n\n");
 

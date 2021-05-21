@@ -28,14 +28,14 @@ public class InputOutput {
 	 */
 	public int input(String falseData) {
 		String inputStr = input.next();
-		
+
 		while (!inputStr.matches("[0-9]+")) {
 			this.output(falseData);
 			inputStr = input.next();
 		}
 
 		return Integer.parseInt(inputStr);
-		
+
 	}
 
 	/**
