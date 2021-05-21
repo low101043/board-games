@@ -49,21 +49,15 @@ public class GameTreeNaughtsAndCrosses {
 				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
 					if (previousBoard.currentBoard()[i][j].type() == Type.EMPTY) {
 						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) previousBoard.clone();
-						try {
-							newBoard.add(piece, i, j);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
+
+						newBoard.add(piece, i, j);
+
 						if (piece.type() == Type.CROSS) {
-							if (newBoard == null) {
-								System.out.println("ERROR");
-							}
+
 							children.add(
 									new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.NAUGHT)));
 						} else {
-							if (newBoard == null) {
-								System.out.println("ERROR");
-							}
+
 							children.add(
 									new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.CROSS)));
 						}

@@ -125,7 +125,7 @@ public class BoardNaughtsAndCrosses implements Board {
 	}
 
 	@Override
-	public boolean add(Piece input, int i, int j) throws Exception { // ADD EXCEPTIONS
+	public boolean add(Piece input, int i, int j) {
 
 		if (i < 0 || i >= HEIGHT) {
 			return false;

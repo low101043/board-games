@@ -43,24 +43,14 @@ public class PlayConnectFour implements Play {
 			while (playerOneGo && !done) {
 				inputOutput.output("Please enter which row you want to choose");
 				int i = inputOutput.input();
-				try {
-					done = board.add(playerOne, i);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				done = board.add(playerOne, i);
 
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("Please enter which row you want to choose");
 				int i = inputOutput.input();
+				done = board.add(playerTwo, i);
 
-				try {
-					done = board.add(playerTwo, i);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 			}
 			playerOneGo = !playerOneGo;
 

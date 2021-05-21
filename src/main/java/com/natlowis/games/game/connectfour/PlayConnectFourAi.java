@@ -57,12 +57,8 @@ public class PlayConnectFourAi implements Play {
 			while (playerOneGo && !done) {
 				inputOutput.output("Please enter which row you want to choose");
 				int i = inputOutput.input();
-				try {
-					done = board.add(playerOne, i);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				done = board.add(playerOne, i);
+
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("AI Running");
@@ -71,12 +67,9 @@ public class PlayConnectFourAi implements Play {
 
 				int i = coord[0];
 				int j = coord[1];
-				try {
-					done = board.add(playerTwo, i, j);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+				done = board.add(playerTwo, i, j);
+
 			}
 			playerOneGo = !playerOneGo;
 

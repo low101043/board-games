@@ -184,10 +184,10 @@ public class BoardConnectFour implements Board {
 	}
 
 	@Override
-	public boolean add(Piece input, int i, int j) throws Exception {
+	public boolean add(Piece input, int i, int j) {
 
 		System.out.println("Error");
-		throw new Exception();
+		return false;
 	}
 
 	/**
@@ -196,9 +196,8 @@ public class BoardConnectFour implements Board {
 	 * @param input  The input {@link Piece} to use
 	 * @param column The column number to add at
 	 * @return {@code true} if it was added otherwise {@code false}
-	 * @throws Exception ??
 	 */
-	public boolean add(Piece input, int column) throws Exception { // TODO Add exceptions
+	public boolean add(Piece input, int column) {
 
 		if (column < 0 || column >= WIDTH) {
 			return false;

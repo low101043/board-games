@@ -51,23 +51,16 @@ public class GameTreeConnectFour {
 
 				if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
 					BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
-					try {
-						boolean completed = newBoard.add(piece, i);
-						if (!completed) {
-							System.out.println("ERROR");
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+					boolean completed = newBoard.add(piece, i);
+					if (!completed) {
+						System.out.println("ERROR");
 					}
+
 					if (piece.type() == Type.CROSS) {
-						if (newBoard == null) {
-							System.out.println("ERROR");
-						}
+
 						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT)));
 					} else {
-						if (newBoard == null) {
-							System.out.println("ERROR");
-						}
+
 						children.add(new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS)));
 					}
 				}

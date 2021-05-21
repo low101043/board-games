@@ -25,9 +25,8 @@ public interface Board {
 	 * @param i     The row to add it at
 	 * @param j     The column to add it at
 	 * @return {@code true} if it was added otherwise {@code false}
-	 * @throws Exception ??
 	 */
-	public boolean add(Piece input, int i, int j) throws Exception;
+	public boolean add(Piece input, int i, int j);
 
 	/**
 	 * Will remove a {@link Piece} from the {@link Board}

@@ -45,24 +45,18 @@ public class PlayNaughtsAndCrosses implements Play {
 				int place = inputOutput.input();
 				int j = place % 3;
 				int i = (place - j) / 3;
-				try {
-					done = board.add(playerOne, i, j);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+				done = board.add(playerOne, i, j);
+
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("Please enter number of place to place position");
 				int place = inputOutput.input();
 				int j = place % 3;
 				int i = (place - j) / 3;
-				try {
-					done = board.add(playerTwo, i, j);
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+
+				done = board.add(playerTwo, i, j);
+
 			}
 			playerOneGo = !playerOneGo;
 
