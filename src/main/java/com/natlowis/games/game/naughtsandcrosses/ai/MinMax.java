@@ -34,7 +34,7 @@ public class MinMax {
 		}
 		BoardNaughtsAndCrosses boardToUse = new BoardNaughtsAndCrosses(board.currentBoard(), pieceToUse);
 
-		GameTreeNaughtsAndCrosses gameTree = new GameTreeNaughtsAndCrosses(boardToUse, pieceToUse);
+		GameTreeNaughtsAndCrosses gameTree = new GameTreeNaughtsAndCrosses(boardToUse, pieceToUse, null, null);
 
 		BoardNaughtsAndCrosses nextMove = gameTree.nextMove();
 
