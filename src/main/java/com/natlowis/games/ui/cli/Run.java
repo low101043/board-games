@@ -78,11 +78,11 @@ public class Run {
 	private int menu() {
 		String output = "Please choose which game you would like to play:\n1)Naughts & Crosses\n2)Connect 4\n3)Chess\n4)Exit";
 		inputOutput.output(output);
-		int choice = inputOutput.input();
+		int choice = inputOutput.input(output + "\nPlease choose an actual number");
 
 		while (choice > 4 || choice <= 0) {
 			inputOutput.output("Please enter an actual choice");
-			choice = inputOutput.input();
+			choice = inputOutput.input(output + "\nPlease choose an actual number");
 		}
 
 		return choice;
@@ -94,11 +94,11 @@ public class Run {
 	private void naughtsAndCrosses() {
 		String output = "Please choose Single Player (1) or Two Player (2)";
 		inputOutput.output(output);
-		int choice = inputOutput.input();
+		int choice = inputOutput.input("Please choose Single Player (1) or Two Player (2)");
 
 		while (choice > 2 || choice <= 0) {
-			inputOutput.output("Please enter an actual choice");
-			choice = inputOutput.input();
+			inputOutput.output("Please choose Single Player (1) or Two Player (2)");
+			choice = inputOutput.input("Please choose Single Player (1) or Two Player (2)");
 		}
 		if (choice == 1) {
 			naughtsAndCrossesSinglePlayer();
@@ -114,11 +114,11 @@ public class Run {
 		inputOutput.output(
 				"Welcome to the Single Player Version of Naughts and Crosses.  Choose to go first (1) or Second (2)");
 
-		int choice = inputOutput.input();
+		int choice = inputOutput.input("Choose to go first (1) or Second (2)");
 
 		while (choice > 2 || choice <= 0) {
 			inputOutput.output("Please enter an actual choice");
-			choice = inputOutput.input();
+			choice = inputOutput.input("Choose to go first (1) or Second (2)");
 		}
 
 		Play naughtsAndCrosses;
