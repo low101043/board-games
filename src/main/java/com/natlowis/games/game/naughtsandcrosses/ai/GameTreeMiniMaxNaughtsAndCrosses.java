@@ -54,12 +54,12 @@ public class GameTreeMiniMaxNaughtsAndCrosses {
 
 						if (piece.type() == Type.CROSS) {
 
-							children.add(
-									new GameTreeMiniMaxNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.NAUGHT)));
+							children.add(new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.NAUGHT)));
 						} else {
 
-							children.add(
-									new GameTreeMiniMaxNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.CROSS)));
+							children.add(new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.CROSS)));
 						}
 					}
 				}

@@ -1,13 +1,12 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
-import java.util.ArrayList;
-
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
 /**
- * Creates the GameTree for a Naughts and Crosses Game.  This uses Alpha Beta Pruning
+ * Creates the GameTree for a Naughts and Crosses Game. This uses Alpha Beta
+ * Pruning
  * 
  * @author low101043
  *
@@ -20,14 +19,15 @@ public class GameTreeAlphaBetaNaughtsAndCrosses {
 	private int utility = -2;
 	/** The best next move to do */
 	private BoardNaughtsAndCrosses nextMove = null;
-	
+
 	/**
 	 * The constructor
 	 * 
 	 * @param previousBoard The Parent of the node
 	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
 	 */
-	public GameTreeAlphaBetaNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece, int alpha, int beta) {
+	public GameTreeAlphaBetaNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece,
+			int alpha, int beta) {
 		node = previousBoard;
 		if (node.won() == null) {
 			utility = 0;
@@ -45,8 +45,7 @@ public class GameTreeAlphaBetaNaughtsAndCrosses {
 		int v;
 		if (piece.type() == Type.CROSS) {
 			v = Integer.MAX_VALUE;
-		}
-		else {
+		} else {
 			v = Integer.MIN_VALUE;
 		}
 		if (utility == -2) {
@@ -58,32 +57,32 @@ public class GameTreeAlphaBetaNaughtsAndCrosses {
 						newBoard.add(piece, i, j);
 
 						if (piece.type() == Type.CROSS) {
-							
-							
-							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta); 
-							
-										
+
+							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta);
+
 							if (gt.returnUtility() < v) {
 								nextMove = gt.getBoard();
 								v = gt.returnUtility();
 							}
 							beta = Math.min(beta, v);
-								
+
 							if (beta <= alpha) {
 								i = previousBoard.currentBoard().length - 1;
 								j = previousBoard.currentBoard()[0].length + 5;
 							}
 						} else {
 
-							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.CROSS),alpha, beta); 
+							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.CROSS), alpha, beta);
 							if (gt.returnUtility() > v) {
 								nextMove = gt.getBoard();
 								v = gt.returnUtility();
 							}
 							alpha = Math.max(alpha, v);
-							
+
 							if (beta <= alpha) {
-								i = previousBoard.currentBoard().length -1;
+								i = previousBoard.currentBoard().length - 1;
 								j = previousBoard.currentBoard()[0].length + 5;
 							}
 						}
@@ -91,7 +90,7 @@ public class GameTreeAlphaBetaNaughtsAndCrosses {
 				}
 			}
 			utility = v;
-			
+
 		}
 
 	}
