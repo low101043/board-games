@@ -7,7 +7,7 @@ import com.natlowis.games.game.interfaces.Board;
 import com.natlowis.games.game.interfaces.Piece;
 
 /**
- * Will implement the MinMax algorithm for Naughts and Crosses
+ * Will implement the MinMax algorithm for Connect Four
  * 
  * @author low101043
  *
@@ -32,7 +32,7 @@ public class MinMax {
 		}
 		BoardConnectFour boardToUse = new BoardConnectFour(board.currentBoard(), pieceToUse);
 
-		GameTreeConnectFour gameTree = new GameTreeConnectFour(boardToUse, pieceToUse);
+		GameTreeConnectFour gameTree = new GameTreeConnectFour(boardToUse, pieceToUse,Integer.MIN_VALUE, Integer.MAX_VALUE);
 
 		BoardConnectFour nextMove = gameTree.nextMove();
 
