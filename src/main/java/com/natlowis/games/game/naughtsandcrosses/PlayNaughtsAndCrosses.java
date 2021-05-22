@@ -42,7 +42,7 @@ public class PlayNaughtsAndCrosses implements Play {
 			boolean done = false;
 			while (playerOneGo && !done) {
 				inputOutput.output("Please enter number of place to place position");
-				int place = inputOutput.input();
+				int place = inputOutput.input("Please enter number of place to place position");
 				int j = place % 3;
 				int i = (place - j) / 3;
 
@@ -51,7 +51,7 @@ public class PlayNaughtsAndCrosses implements Play {
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("Please enter number of place to place position");
-				int place = inputOutput.input();
+				int place = inputOutput.input("Please enter number of place to place position");
 				int j = place % 3;
 				int i = (place - j) / 3;
 

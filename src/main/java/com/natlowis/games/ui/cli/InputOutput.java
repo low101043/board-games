@@ -23,12 +23,19 @@ public class InputOutput {
 	/**
 	 * To get the input from the screen
 	 * 
+	 * @param falseData The error message to send if the user enters incorrect data
 	 * @return An {@code int} which was last entered by the user
 	 */
-	public int input() {
-		int num = input.nextInt();
+	public int input(String falseData) {
+		String inputStr = input.next();
 
-		return num;
+		while (!inputStr.matches("[0-9]+")) {
+			this.output(falseData);
+			inputStr = input.next();
+		}
+
+		return Integer.parseInt(inputStr);
+
 	}
 
 	/**
