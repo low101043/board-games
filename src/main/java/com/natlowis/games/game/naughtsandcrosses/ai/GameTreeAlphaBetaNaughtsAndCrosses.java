@@ -25,6 +25,8 @@ public class GameTreeAlphaBetaNaughtsAndCrosses {
 	 * 
 	 * @param previousBoard The Parent of the node
 	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
+	 * @param alpha         The alpha value
+	 * @param beta          The beta value
 	 */
 	public GameTreeAlphaBetaNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece,
 			int alpha, int beta) {
