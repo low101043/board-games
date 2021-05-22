@@ -12,14 +12,14 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  * @author low101043
  *
  */
-public class GameTreeNaughtsAndCrosses {
+public class GameTreeMiniMaxNaughtsAndCrosses {
 
 	/** The {@link BoardNaughtsAndCrosses} which is represented by this node */
 	private BoardNaughtsAndCrosses node;
 	/** The utility of this node. -2 if not set otherwise -1,0,1 */
 	private int utility = -2;
 	/** The children of this node */
-	private ArrayList<GameTreeNaughtsAndCrosses> children = new ArrayList<GameTreeNaughtsAndCrosses>();
+	private ArrayList<GameTreeMiniMaxNaughtsAndCrosses> children = new ArrayList<GameTreeMiniMaxNaughtsAndCrosses>();
 	/** The best next move to do */
 	private BoardNaughtsAndCrosses nextMove;
 
@@ -29,7 +29,7 @@ public class GameTreeNaughtsAndCrosses {
 	 * @param previousBoard The Parent of the node
 	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
 	 */
-	public GameTreeNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece) {
+	public GameTreeMiniMaxNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece) {
 		node = previousBoard;
 		if (node.won() == null) {
 			utility = 0;
@@ -54,12 +54,12 @@ public class GameTreeNaughtsAndCrosses {
 
 						if (piece.type() == Type.CROSS) {
 
-							children.add(
-									new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.NAUGHT)));
+							children.add(new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.NAUGHT)));
 						} else {
 
-							children.add(
-									new GameTreeNaughtsAndCrosses(newBoard, new PieceNaughtsAndCrosses(Type.CROSS)));
+							children.add(new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.CROSS)));
 						}
 					}
 				}
@@ -70,7 +70,7 @@ public class GameTreeNaughtsAndCrosses {
 			} else {
 				v = Integer.MIN_VALUE;
 			}
-			for (GameTreeNaughtsAndCrosses child : children) {
+			for (GameTreeMiniMaxNaughtsAndCrosses child : children) {
 
 				if (piece.type() == Type.CROSS) {
 
