@@ -32,7 +32,8 @@ public class MinMax {
 		}
 		BoardConnectFour boardToUse = new BoardConnectFour(board.currentBoard(), pieceToUse);
 
-		GameTreeConnectFour gameTree = new GameTreeConnectFour(boardToUse, pieceToUse,Integer.MIN_VALUE, Integer.MAX_VALUE);
+		GameTreeConnectFour gameTree = new GameTreeConnectFour(boardToUse, pieceToUse, Integer.MIN_VALUE,
+				Integer.MAX_VALUE);
 
 		BoardConnectFour nextMove = gameTree.nextMove();
 

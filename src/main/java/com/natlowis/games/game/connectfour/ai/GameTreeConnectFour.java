@@ -1,13 +1,9 @@
 package com.natlowis.games.game.connectfour.ai;
 
-import java.util.ArrayList;
-
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.connectfour.BoardConnectFour;
 import com.natlowis.games.game.connectfour.PieceConnectFour;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
-import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
-import com.natlowis.games.game.naughtsandcrosses.ai.GameTreeAlphaBetaNaughtsAndCrosses;
 
 /**
  * Creates the GameTree for a Naughts and Crosses Game
@@ -29,8 +25,8 @@ public class GameTreeConnectFour {
 	 * 
 	 * @param previousBoard The Parent of the node
 	 * @param piece         The {@link PieceConnectFour} to add next
-	 * @param alpha The alpha value
-	 * @param beta The beta value
+	 * @param alpha         The alpha value
+	 * @param beta          The beta value
 	 */
 	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece, int alpha, int beta) {
 		node = previousBoard;
@@ -66,8 +62,8 @@ public class GameTreeConnectFour {
 
 					if (piece.type() == Type.CROSS) {
 
-						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard,
-								new PieceConnectFour(Type.NAUGHT), alpha, beta);
+						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT),
+								alpha, beta);
 
 						if (gt.returnUtility() < v) {
 							nextMove = gt.getBoard();
@@ -77,11 +73,11 @@ public class GameTreeConnectFour {
 
 						if (beta <= alpha) {
 							i = previousBoard.currentBoard()[0].length;
-							
+
 						}
 					} else {
-						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard,
-								new PieceConnectFour(Type.CROSS), alpha, beta);
+						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS),
+								alpha, beta);
 						if (gt.returnUtility() > v) {
 							nextMove = gt.getBoard();
 							v = gt.returnUtility();
@@ -90,7 +86,7 @@ public class GameTreeConnectFour {
 
 						if (beta <= alpha) {
 							i = previousBoard.currentBoard().length;
-							
+
 						}
 					}
 				}

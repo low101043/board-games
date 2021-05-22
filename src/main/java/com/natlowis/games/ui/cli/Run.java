@@ -1,6 +1,5 @@
 package com.natlowis.games.ui.cli;
 
-import com.natlowis.games.game.connectfour.PlayConnectFour;
 import com.natlowis.games.game.connectfour.PlayConnectFourAi;
 import com.natlowis.games.game.interfaces.Play;
 import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrosses;
@@ -69,7 +68,7 @@ public class Run {
 		connectFour.run();
 
 	}
-	
+
 	/**
 	 * Shows the options for Connect Four
 	 */
@@ -88,7 +87,7 @@ public class Run {
 			connectFourTwoPlayer();
 		}
 	}
-	
+
 	/**
 	 * Plays Single Player Connect Four
 	 */
