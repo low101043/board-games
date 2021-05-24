@@ -1,6 +1,6 @@
 package com.natlowis.games.ui.cli;
 
-import com.natlowis.games.game.connectfour.PlayConnectFour;
+import com.natlowis.games.game.connectfour.PlayConnectFourAi;
 import com.natlowis.games.game.interfaces.Play;
 import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrossesAi;
@@ -58,14 +58,59 @@ public class Run {
 	}
 
 	/**
-	 * Runs Connect 4
+	 * Runs Connect 4 for 2 players
 	 */
-	private void connectFour() {
+	private void connectFourTwoPlayer() {
 		inputOutput.output("Welcome to the Two Player version of Connect Four.\n\nSingle Player coming soon");
 		inputOutput.output("Crosses go first\n\n");
 
-		Play connectFour = new PlayConnectFour(inputOutput);
+		Play connectFour = new PlayConnectFourAi(inputOutput, true);
 		connectFour.run();
+
+	}
+
+	/**
+	 * Shows the options for Connect Four
+	 */
+	private void connectFour() {
+		String output = "Please choose Single Player (1) or Two Player (2)";
+		inputOutput.output(output);
+		int choice = inputOutput.input("Please choose Single Player (1) or Two Player (2)");
+
+		while (choice > 2 || choice <= 0) {
+			inputOutput.output("Please choose Single Player (1) or Two Player (2)");
+			choice = inputOutput.input("Please choose Single Player (1) or Two Player (2)");
+		}
+		if (choice == 1) {
+			connectFourSinglePlayer();
+		} else {
+			connectFourTwoPlayer();
+		}
+	}
+
+	/**
+	 * Plays Single Player Connect Four
+	 */
+	private void connectFourSinglePlayer() {
+		inputOutput.output(
+				"Welcome to the Single Player Version of Connect Four.  \nNote.  This AI opponent takes a lonnnnnng time to make a move.  Like really long.  I ran it for 2 hours and it still hadn't made a move. \n  Choose to go first (1) or Second (2) or to exit (3):");
+
+		int choice = inputOutput.input("Choose to go first (1) or Second (2)");
+
+		while (choice > 3 || choice <= 0) {
+			inputOutput.output("Please enter an actual choice");
+			choice = inputOutput.input("Choose to go first (1) or Second (2) or exit (3)");
+		}
+
+		Play naughtsAndCrosses;
+		if (choice == 1) {
+			naughtsAndCrosses = new PlayConnectFourAi(inputOutput, true);
+		} else if (choice == 2) {
+			naughtsAndCrosses = new PlayConnectFourAi(inputOutput, false);
+		} else {
+			return;
+		}
+		naughtsAndCrosses.run();
 
 	}
 
