@@ -1,9 +1,9 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.interfaces.Board;
-import com.natlowis.games.game.interfaces.Piece;
-import com.natlowis.games.game.interfaces.Play;
+import com.natlowis.games.game.interfaces.games.Board;
+import com.natlowis.games.game.interfaces.games.Piece;
+import com.natlowis.games.game.interfaces.games.Play;
 import com.natlowis.games.ui.cli.InputOutput;
 
 /**

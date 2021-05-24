@@ -1,7 +1,7 @@
 package com.natlowis.games.game.connectfour;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.interfaces.Piece;
+import com.natlowis.games.game.interfaces.games.Piece;
 
 /**
  * This will contain all the information for a {@link Piece} used by Connect

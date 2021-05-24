@@ -1,8 +1,8 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.interfaces.Board;
-import com.natlowis.games.game.interfaces.Piece;
+import com.natlowis.games.game.interfaces.games.Board;
+import com.natlowis.games.game.interfaces.games.Piece;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
