@@ -3,8 +3,8 @@ package com.natlowis.games.game.connectfour.ai;
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.connectfour.BoardConnectFour;
 import com.natlowis.games.game.connectfour.PieceConnectFour;
+import com.natlowis.games.game.interfaces.ai.GameTree;
 import com.natlowis.games.game.interfaces.games.Board;
-import com.natlowis.games.game.interfaces.games.ai.GameTree;
 
 /**
  * Creates the GameTree for a Connect Four Game. Uses MiniMax with Alpha Beta

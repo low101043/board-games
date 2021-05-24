@@ -1,4 +1,4 @@
-package com.natlowis.games.game.interfaces.games.ai;
+package com.natlowis.games.game.interfaces.ai;
 
 import com.natlowis.games.game.interfaces.games.Board;
 

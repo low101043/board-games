@@ -3,9 +3,9 @@ package com.natlowis.games.game.connectfour.ai;
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.connectfour.BoardConnectFour;
 import com.natlowis.games.game.connectfour.PieceConnectFour;
+import com.natlowis.games.game.interfaces.ai.MiniMax;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.Piece;
-import com.natlowis.games.game.interfaces.games.ai.MiniMax;
 
 /**
  * Will implement the MinMax algorithm for Connect Four

@@ -1,4 +1,4 @@
-package com.natlowis.games.game.interfaces.games.ai;
+package com.natlowis.games.game.interfaces.ai;
 
 /**
  * This will specify how to use the MiniMax Classes for AI
