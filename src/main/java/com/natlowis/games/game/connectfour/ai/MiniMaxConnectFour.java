@@ -13,7 +13,7 @@ import com.natlowis.games.game.interfaces.games.ai.MiniMax;
  * @author low101043
  *
  */
-public class MiniMaxConnectFour implements MiniMax{
+public class MiniMaxConnectFour implements MiniMax {
 
 	/** The next move to do position in the i'th position */
 	private int iNext;
@@ -36,7 +36,7 @@ public class MiniMaxConnectFour implements MiniMax{
 		GameTreeConnectFour gameTree = new GameTreeConnectFour(boardToUse, pieceToUse, Integer.MIN_VALUE,
 				Integer.MAX_VALUE);
 
-		BoardConnectFour nextMove = gameTree.nextMove();
+		BoardConnectFour nextMove = (BoardConnectFour) gameTree.nextMove();
 
 		for (int i = 0; i < boardToUse.currentBoard().length; i++) {
 

@@ -37,7 +37,7 @@ public class MiniMaxNaughtsAndCrosses implements MiniMax {
 
 		GameTreeMiniMaxNaughtsAndCrosses gameTree = new GameTreeMiniMaxNaughtsAndCrosses(boardToUse, pieceToUse);
 
-		BoardNaughtsAndCrosses nextMove = gameTree.nextMove();
+		BoardNaughtsAndCrosses nextMove = (BoardNaughtsAndCrosses) gameTree.nextMove();
 
 		for (int i = 0; i < boardToUse.currentBoard().length; i++) {
 			for (int j = 0; j < boardToUse.currentBoard()[i].length; j++) {

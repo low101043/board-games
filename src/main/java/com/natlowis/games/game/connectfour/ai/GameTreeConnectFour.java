@@ -3,6 +3,7 @@ package com.natlowis.games.game.connectfour.ai;
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.connectfour.BoardConnectFour;
 import com.natlowis.games.game.connectfour.PieceConnectFour;
+import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.ai.GameTree;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 
@@ -98,11 +99,6 @@ public class GameTreeConnectFour implements GameTree {
 	}
 
 	@Override
-	public void setUtility(int newUtility) {
-		utility = newUtility;
-	}
-
-	@Override
 	public int returnUtility() {
 		return utility;
 	}
@@ -112,16 +108,12 @@ public class GameTreeConnectFour implements GameTree {
 	 * 
 	 * @return The {@link BoardNaughtsAndCrosses}
 	 */
-	public BoardConnectFour getBoard() {
+	private BoardConnectFour getBoard() {
 		return node;
 	}
 
-	/**
-	 * Gets the next move to be done by this Node
-	 * 
-	 * @return The {@link BoardNaughtsAndCrosses} which is the next move
-	 */
-	public BoardConnectFour nextMove() {
+	@Override
+	public Board nextMove() {
 		return nextMove;
 	}
 }
