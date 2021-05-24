@@ -5,10 +5,10 @@ import com.natlowis.games.game.connectfour.BoardConnectFour;
 import com.natlowis.games.game.connectfour.PieceConnectFour;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.ai.GameTree;
-import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 
 /**
- * Creates the GameTree for a Connect Four Game.  Uses MiniMax with Alpha Beta Pruning
+ * Creates the GameTree for a Connect Four Game. Uses MiniMax with Alpha Beta
+ * Pruning
  * 
  * @author low101043
  *
@@ -27,8 +27,8 @@ public class GameTreeConnectFour implements GameTree {
 	 * 
 	 * @param previousBoard The State of the node
 	 * @param piece         The {@link PieceConnectFour} to add next
-	 * @param alpha         The alpha value.  The Minimum the state can be
-	 * @param beta          The beta value.  The Maximum the state can be  
+	 * @param alpha         The alpha value. The Minimum the state can be
+	 * @param beta          The beta value. The Maximum the state can be
 	 */
 	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece, int alpha, int beta) {
 		node = previousBoard;
