@@ -3,6 +3,7 @@ package com.natlowis.games.game.naughtsandcrosses.ai;
 import java.util.ArrayList;
 
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.interfaces.games.ai.GameTree;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
@@ -12,7 +13,7 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  * @author low101043
  *
  */
-public class GameTreeMiniMaxNaughtsAndCrosses {
+public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 
 	/** The {@link BoardNaughtsAndCrosses} which is represented by this node */
 	private BoardNaughtsAndCrosses node;
@@ -92,20 +93,12 @@ public class GameTreeMiniMaxNaughtsAndCrosses {
 
 	}
 
-	/**
-	 * Sets the new utility value
-	 * 
-	 * @param newUtility The new value
-	 */
+	@Override
 	public void setUtility(int newUtility) {
 		utility = newUtility;
 	}
 
-	/**
-	 * Gets the current Utility value
-	 * 
-	 * @return
-	 */
+	@Override
 	public int returnUtility() {
 		return utility;
 	}

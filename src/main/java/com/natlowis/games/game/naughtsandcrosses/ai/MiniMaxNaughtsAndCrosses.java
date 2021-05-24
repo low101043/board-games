@@ -3,6 +3,7 @@ package com.natlowis.games.game.naughtsandcrosses.ai;
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.Piece;
+import com.natlowis.games.game.interfaces.games.ai.MiniMax;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
@@ -12,7 +13,7 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  * @author low101043
  *
  */
-public class MiniMaxNaughtsAndCrosses {
+public class MiniMaxNaughtsAndCrosses implements MiniMax {
 
 	/** The next move to do position in the i'th position */
 	private int iNext;
@@ -51,11 +52,7 @@ public class MiniMaxNaughtsAndCrosses {
 
 	}
 
-	/**
-	 * Returns the coordinates of the next move
-	 * 
-	 * @return A 2D array which contains the next move to do
-	 */
+	@Override
 	public int[] coordinates() {
 		int[] arrayToReturn = { iNext, jNext };
 		return arrayToReturn;
