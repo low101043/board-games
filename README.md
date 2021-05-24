@@ -16,7 +16,7 @@ This is a Java Project where I want to implement different board games.
     
   - AI
     - Naughts & Crosses.  Uses MiniMax (my own version created from pseudocode) and MiniMax with Alpha Beta Pruning (uses pseudocode check credit below)
-    - Connect Four has AI which takes hours
+    - Connect Four has AI which takes hours.  (Had it running for 2 hours and still hadn't made a move)
     
 ## Credit
 - Miqing Li - Taught AI2 and taught theory of MiniMax (and Alpha Beta Pruning).  The MiniMax code is adapated from his pseudocode

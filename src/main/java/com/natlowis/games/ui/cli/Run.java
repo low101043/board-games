@@ -93,20 +93,23 @@ public class Run {
 	 */
 	private void connectFourSinglePlayer() {
 		inputOutput.output(
-				"Welcome to the Single Player Version of Connect Four.  \nNote.  This AI opponent takes a lonnnnnng time to make a move.  Like really long.  Like watch a film still not done long (I haven't done this but still). \n  Choose to go first (1) or Second (2)");
+				"Welcome to the Single Player Version of Connect Four.  \nNote.  This AI opponent takes a lonnnnnng time to make a move.  Like really long.  I ran it for 2 hours and it still hadn't made a move. \n  Choose to go first (1) or Second (2) or to exit (3):");
 
 		int choice = inputOutput.input("Choose to go first (1) or Second (2)");
 
-		while (choice > 2 || choice <= 0) {
+		while (choice > 3 || choice <= 0) {
 			inputOutput.output("Please enter an actual choice");
-			choice = inputOutput.input("Choose to go first (1) or Second (2)");
+			choice = inputOutput.input("Choose to go first (1) or Second (2) or exit (3)");
 		}
 
 		Play naughtsAndCrosses;
 		if (choice == 1) {
 			naughtsAndCrosses = new PlayConnectFourAi(inputOutput, true);
-		} else {
+		} else if (choice == 2){
 			naughtsAndCrosses = new PlayConnectFourAi(inputOutput, false);
+		}
+		else {
+			return;
 		}
 		naughtsAndCrosses.run();
 
