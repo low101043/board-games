@@ -105,10 +105,9 @@ public class Run {
 		Play naughtsAndCrosses;
 		if (choice == 1) {
 			naughtsAndCrosses = new PlayConnectFourAi(inputOutput, true);
-		} else if (choice == 2){
+		} else if (choice == 2) {
 			naughtsAndCrosses = new PlayConnectFourAi(inputOutput, false);
-		}
-		else {
+		} else {
 			return;
 		}
 		naughtsAndCrosses.run();
