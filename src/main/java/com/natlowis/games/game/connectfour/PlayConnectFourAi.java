@@ -1,7 +1,7 @@
 package com.natlowis.games.game.connectfour;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.connectfour.ai.MinMax;
+import com.natlowis.games.game.connectfour.ai.MiniMaxConnectFour;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.Piece;
 import com.natlowis.games.game.interfaces.games.Play;
@@ -62,8 +62,8 @@ public class PlayConnectFourAi implements Play {
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("AI Running");
-				MinMax minMax = new MinMax(board, playerTwo);
-				int[] coord = minMax.coordinates();
+				MiniMaxConnectFour miniMaxConnectFour = new MiniMaxConnectFour(board, playerTwo);
+				int[] coord = miniMaxConnectFour.coordinates();
 
 				int i = coord[0];
 				int j = coord[1];

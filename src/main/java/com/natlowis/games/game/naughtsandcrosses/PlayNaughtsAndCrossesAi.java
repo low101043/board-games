@@ -4,7 +4,7 @@ import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.Piece;
 import com.natlowis.games.game.interfaces.games.Play;
-import com.natlowis.games.game.naughtsandcrosses.ai.MinMax;
+import com.natlowis.games.game.naughtsandcrosses.ai.MiniMaxNaughtsAndCrosses;
 import com.natlowis.games.ui.cli.InputOutput;
 
 /**
@@ -65,8 +65,8 @@ public class PlayNaughtsAndCrossesAi implements Play {
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("AI Running");
-				MinMax minMax = new MinMax(board, playerTwo);
-				int[] coord = minMax.coordinates();
+				MiniMaxNaughtsAndCrosses miniMaxNaughtsAndCrosses = new MiniMaxNaughtsAndCrosses(board, playerTwo);
+				int[] coord = miniMaxNaughtsAndCrosses.coordinates();
 
 				int i = coord[0];
 				int j = coord[1];

@@ -12,7 +12,7 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  * @author low101043
  *
  */
-public class MinMax {
+public class MiniMaxNaughtsAndCrosses {
 
 	/** The next move to do position in the i'th position */
 	private int iNext;
@@ -25,7 +25,7 @@ public class MinMax {
 	 * @param board The {@link Board} to start from
 	 * @param piece The {@link Piece} whose move it is
 	 */
-	public MinMax(Board board, Piece piece) {
+	public MiniMaxNaughtsAndCrosses(Board board, Piece piece) {
 		PieceNaughtsAndCrosses pieceToUse;
 		if (piece.type() == Type.CROSS) {
 			pieceToUse = new PieceNaughtsAndCrosses(Type.CROSS);
