@@ -17,8 +17,7 @@ public class PieceNaughtsAndCrosses implements Piece {
 	/**
 	 * A Constructor
 	 * 
-	 * @param typeStr         The type of the piece
-	 * @param playerOneChoice {@code true} if player one else {@code false}
+	 * @param typeArg The {@link Type} of this {@link Piece}
 	 */
 	public PieceNaughtsAndCrosses(Type typeArg) {
 

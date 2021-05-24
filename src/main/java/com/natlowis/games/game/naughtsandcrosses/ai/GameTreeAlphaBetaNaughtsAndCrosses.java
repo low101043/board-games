@@ -27,8 +27,8 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 	 * 
 	 * @param previousBoard The Parent of the node
 	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
-	 * @param alpha         The alpha value
-	 * @param beta          The beta value
+	 * @param alpha         The alpha value.  The minimum value this state could be.
+	 * @param beta          The beta value.  The maximum value this state could be.
 	 */
 	public GameTreeAlphaBetaNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece,
 			int alpha, int beta) {

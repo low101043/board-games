@@ -14,15 +14,7 @@ import com.natlowis.games.game.naughtsandcrosses.PlayNaughtsAndCrossesAi;
 public class Run {
 
 	/** The {@link InputOutput} used by the system */
-	private InputOutput inputOutput;
-
-	/**
-	 * The Basic Constructor
-	 */
-	public Run() {
-		inputOutput = new InputOutput();
-
-	}
+	private InputOutput inputOutput = new InputOutput();
 
 	/**
 	 * Shows the menu and runs the game

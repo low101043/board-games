@@ -2,6 +2,11 @@ package com.natlowis.games.game.interfaces.games.ai;
 
 import com.natlowis.games.game.interfaces.games.Board;
 
+/**
+ * States the methods needed for a {@code GameTree}
+ * @author low101043
+ *
+ */
 public interface GameTree {
 
 	/**

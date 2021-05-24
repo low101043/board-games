@@ -13,7 +13,7 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  */
 public class BoardConnectFour implements Board {
 
-	/** Will contain all the {@link Piece} */
+	/** Will contain all the {@link Piece}'s */
 	private Piece[][] board;
 	/** The width of the board */
 	private int WIDTH = 7;
@@ -21,7 +21,7 @@ public class BoardConnectFour implements Board {
 	private int HEIGHT = 6;
 
 	/**
-	 * A Constructor which created the board and an empty {@link Piece}
+	 * A Constructor which creates the board
 	 */
 	public BoardConnectFour() {
 		board = new Piece[HEIGHT][WIDTH];
@@ -40,9 +40,8 @@ public class BoardConnectFour implements Board {
 	 * A constructor which is used to create a {@code GameTree}
 	 * 
 	 * @param boardCopy A copy of the previous board
-	 * @param blankCopy A copy of the blank {@link Piece}
 	 */
-	public BoardConnectFour(Piece[][] boardCopy, Piece blankCopy) {
+	public BoardConnectFour(Piece[][] boardCopy) {
 		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY);
 		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS);
 		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT);
@@ -232,7 +231,7 @@ public class BoardConnectFour implements Board {
 	@Override
 	public Piece[][] currentBoard() {
 
-		return board; // SHOULD BE DEEPCOPY
+		return board;
 	}
 
 	@Override
@@ -241,7 +240,7 @@ public class BoardConnectFour implements Board {
 		try {
 			return (BoardConnectFour) super.clone();
 		} catch (CloneNotSupportedException e) {
-			return new BoardConnectFour(board, new PieceConnectFour(Type.EMPTY));
+			return new BoardConnectFour(board);
 		}
 	}
 

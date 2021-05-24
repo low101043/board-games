@@ -18,8 +18,7 @@ public class PieceConnectFour implements Piece {
 	/**
 	 * A Constructor which create a Piece
 	 * 
-	 * @param typeStr         The type it will be
-	 * @param playerOneChoice Whether player one uses it
+	 * @param typeArg The {@link Type} of the Piece
 	 */
 	public PieceConnectFour(Type typeArg) {
 

@@ -8,7 +8,7 @@ import com.natlowis.games.game.interfaces.games.Play;
 import com.natlowis.games.ui.cli.InputOutput;
 
 /**
- * Plays Naughts and crosses with an AI player
+ * Plays Connect Four with an AI player
  * 
  * @author low101043
  *
@@ -16,7 +16,7 @@ import com.natlowis.games.ui.cli.InputOutput;
 public class PlayConnectFourAi implements Play {
 
 	/** The {@link Board} to use */
-	private BoardConnectFour board;
+	private BoardConnectFour board = new BoardConnectFour();
 	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
 	/** Whether the user goes first or not */
@@ -29,7 +29,6 @@ public class PlayConnectFourAi implements Play {
 	 * @param first       {@code true} if user goes first otherwise {@code false}
 	 */
 	public PlayConnectFourAi(InputOutput inputOutput, boolean first) {
-		board = new BoardConnectFour();
 		this.inputOutput = inputOutput;
 		this.first = first;
 	}

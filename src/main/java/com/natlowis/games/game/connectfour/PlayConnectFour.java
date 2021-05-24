@@ -15,7 +15,7 @@ import com.natlowis.games.ui.cli.InputOutput;
 public class PlayConnectFour implements Play {
 
 	/** The {@link Board} to use */
-	private BoardConnectFour board;
+	private BoardConnectFour board = new BoardConnectFour();
 	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
 
@@ -25,7 +25,6 @@ public class PlayConnectFour implements Play {
 	 * @param inputOutput The {@link InputOutput} to use
 	 */
 	public PlayConnectFour(InputOutput inputOutput) {
-		board = new BoardConnectFour();
 		this.inputOutput = inputOutput;
 	}
 
@@ -62,7 +61,7 @@ public class PlayConnectFour implements Play {
 	/**
 	 * Whether the game has been completed
 	 * 
-	 * @return {@code true} if the game is finished otherwise false
+	 * @return {@code true} if the game is finished otherwise {@code false}
 	 */
 	private boolean completed() {
 

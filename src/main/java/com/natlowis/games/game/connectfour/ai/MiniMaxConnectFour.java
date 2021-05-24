@@ -31,7 +31,7 @@ public class MiniMaxConnectFour implements MiniMax {
 		} else {
 			pieceToUse = new PieceConnectFour(Type.NAUGHT);
 		}
-		BoardConnectFour boardToUse = new BoardConnectFour(board.currentBoard(), pieceToUse);
+		BoardConnectFour boardToUse = new BoardConnectFour(board.currentBoard());
 
 		GameTreeConnectFour gameTree = new GameTreeConnectFour(boardToUse, pieceToUse, Integer.MIN_VALUE,
 				Integer.MAX_VALUE);

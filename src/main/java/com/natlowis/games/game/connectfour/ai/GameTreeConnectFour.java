@@ -8,7 +8,7 @@ import com.natlowis.games.game.interfaces.games.ai.GameTree;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 
 /**
- * Creates the GameTree for a Naughts and Crosses Game
+ * Creates the GameTree for a Connect Four Game.  Uses MiniMax with Alpha Beta Pruning
  * 
  * @author low101043
  *
@@ -25,10 +25,10 @@ public class GameTreeConnectFour implements GameTree {
 	/**
 	 * The constructor
 	 * 
-	 * @param previousBoard The Parent of the node
+	 * @param previousBoard The State of the node
 	 * @param piece         The {@link PieceConnectFour} to add next
-	 * @param alpha         The alpha value
-	 * @param beta          The beta value
+	 * @param alpha         The alpha value.  The Minimum the state can be
+	 * @param beta          The beta value.  The Maximum the state can be  
 	 */
 	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece, int alpha, int beta) {
 		node = previousBoard;
@@ -104,9 +104,9 @@ public class GameTreeConnectFour implements GameTree {
 	}
 
 	/**
-	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
+	 * Gets the {@link BoardConnectFour} which is represented by this node
 	 * 
-	 * @return The {@link BoardNaughtsAndCrosses}
+	 * @return The {@link BoardConnectFour}
 	 */
 	private BoardConnectFour getBoard() {
 		return node;

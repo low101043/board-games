@@ -16,7 +16,7 @@ import com.natlowis.games.ui.cli.InputOutput;
 public class PlayNaughtsAndCrossesAi implements Play {
 
 	/** The {@link Board} to use */
-	private Board board;
+	private Board board = new BoardNaughtsAndCrosses();
 	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
 	/** Whether the user goes first or not */
@@ -29,7 +29,6 @@ public class PlayNaughtsAndCrossesAi implements Play {
 	 * @param first       {@code true} if user goes first otherwise {@code false}
 	 */
 	public PlayNaughtsAndCrossesAi(InputOutput inputOutput, boolean first) {
-		board = new BoardNaughtsAndCrosses();
 		this.inputOutput = inputOutput;
 		this.first = first;
 	}
