@@ -35,15 +35,15 @@ public class GameTreeConnectFour implements GameTree {
 		if (addedUtility()) {
 			return;
 		}
-		
+
 		int v = setUp(piece);
-		
+
 		if (utility == -2) {
 
 			for (int i = 0; i < previousBoard.currentBoard()[0].length; i++) {
 
 				if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
-					
+
 					BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
 					newBoard.add(piece, i);
 
@@ -85,6 +85,7 @@ public class GameTreeConnectFour implements GameTree {
 
 	/**
 	 * This sets the v to be the correct value
+	 * 
 	 * @param piece The piece which is used
 	 * @return The {@code int} value v should be set to
 	 */
@@ -97,8 +98,11 @@ public class GameTreeConnectFour implements GameTree {
 	}
 
 	/**
-	 * This checks if we have reached a terminal state and thus have set the utility value
-	 * @return {@code true} if terminal state and set utility otherwise {@code false}
+	 * This checks if we have reached a terminal state and thus have set the utility
+	 * value
+	 * 
+	 * @return {@code true} if terminal state and set utility otherwise
+	 *         {@code false}
 	 */
 	private boolean addedUtility() {
 		if (node.won() == null) {

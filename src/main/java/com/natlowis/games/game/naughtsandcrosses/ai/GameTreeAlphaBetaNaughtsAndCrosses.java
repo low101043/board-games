@@ -1,8 +1,6 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.interfaces.ai.GameTree;
-import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
@@ -13,14 +11,7 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  * @author low101043
  *
  */
-public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
-
-	/** The {@link BoardNaughtsAndCrosses} which is represented by this node */
-	private BoardNaughtsAndCrosses node;
-	/** The utility of this node. -2 if not set otherwise -1,0,1 */
-	private int utility = -2;
-	/** The best next move to do */
-	private BoardNaughtsAndCrosses nextMove = null;
+public class GameTreeAlphaBetaNaughtsAndCrosses extends GameTreeNaughtsAndCrosses {
 
 	/**
 	 * The constructor
@@ -33,25 +24,13 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 	public GameTreeAlphaBetaNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece,
 			int alpha, int beta) {
 		node = previousBoard;
-		if (node.won() == null) {
-			utility = 0;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.CROSS) {
-			utility = -1;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.NAUGHT) {
-			utility = 1;
-			nextMove = null;
+
+		if (terminalNode()) {
 			return;
 		}
-		int v;
-		if (piece.type() == Type.CROSS) {
-			v = Integer.MAX_VALUE;
-		} else {
-			v = Integer.MIN_VALUE;
-		}
+
+		int v = setUp(piece);
+
 		if (utility == -2) {
 			for (int i = 0; i < previousBoard.currentBoard().length; i++) {
 				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
@@ -75,6 +54,7 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 								i = previousBoard.currentBoard().length - 1;
 								j = previousBoard.currentBoard()[0].length + 5;
 							}
+
 						} else {
 
 							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
@@ -94,27 +74,8 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 				}
 			}
 			utility = v;
-
 		}
 
 	}
 
-	@Override
-	public int returnUtility() {
-		return utility;
-	}
-
-	/**
-	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
-	 * 
-	 * @return The {@link BoardNaughtsAndCrosses}
-	 */
-	private BoardNaughtsAndCrosses getBoard() {
-		return node;
-	}
-
-	@Override
-	public Board nextMove() {
-		return nextMove;
-	}
 }
