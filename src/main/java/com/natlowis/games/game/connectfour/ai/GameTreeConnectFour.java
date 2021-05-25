@@ -32,35 +32,20 @@ public class GameTreeConnectFour implements GameTree {
 	 */
 	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece, int alpha, int beta) {
 		node = previousBoard;
-		if (node.won() == null) {
-			utility = 0;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.CROSS) {
-			utility = -1;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.NAUGHT) {
-			utility = 1;
-			nextMove = null;
+		if (addedUtility()) {
 			return;
 		}
-		int v;
-		if (piece.type() == Type.CROSS) {
-			v = Integer.MAX_VALUE;
-		} else {
-			v = Integer.MIN_VALUE;
-		}
+		
+		int v = setUp(piece);
+		
 		if (utility == -2) {
 
 			for (int i = 0; i < previousBoard.currentBoard()[0].length; i++) {
 
 				if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
+					
 					BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
-					boolean completed = newBoard.add(piece, i);
-					if (!completed) {
-						System.out.println("ERROR");
-					}
+					newBoard.add(piece, i);
 
 					if (piece.type() == Type.CROSS) {
 
@@ -96,6 +81,40 @@ public class GameTreeConnectFour implements GameTree {
 		}
 		utility = v;
 
+	}
+
+	/**
+	 * This sets the v to be the correct value
+	 * @param piece The piece which is used
+	 * @return The {@code int} value v should be set to
+	 */
+	private int setUp(PieceConnectFour piece) {
+		if (piece.type() == Type.CROSS) {
+			return Integer.MAX_VALUE;
+		} else {
+			return Integer.MIN_VALUE;
+		}
+	}
+
+	/**
+	 * This checks if we have reached a terminal state and thus have set the utility value
+	 * @return {@code true} if terminal state and set utility otherwise {@code false}
+	 */
+	private boolean addedUtility() {
+		if (node.won() == null) {
+			utility = 0;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.CROSS) {
+			utility = -1;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.NAUGHT) {
+			utility = 1;
+			nextMove = null;
+			return true;
+		}
+		return false;
 	}
 
 	@Override
