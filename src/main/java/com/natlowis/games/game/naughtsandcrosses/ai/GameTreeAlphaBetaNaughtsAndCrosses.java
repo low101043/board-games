@@ -1,7 +1,6 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.connectfour.PieceConnectFour;
 import com.natlowis.games.game.interfaces.ai.GameTree;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
@@ -40,78 +39,80 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 
 	/**
 	 * This will create the tree
-	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
-	 * @param alpha         The alpha value. The Minimum the state can be
-	 * @param beta          The beta value. The Maximum the state can be
+	 * 
+	 * @param piece The {@link PieceNaughtsAndCrosses} to add next
+	 * @param alpha The alpha value. The Minimum the state can be
+	 * @param beta  The beta value. The Maximum the state can be
 	 */
 	private void createTree(PieceNaughtsAndCrosses piece, int alpha, int beta) {
 		if (terminalNode()) {
 			return;
 		}
-		
+
 		utility = setUpUtility(piece);
-		
-			for (int i = 0; i < node.currentBoard().length; i++) {
-				for (int j = 0; j < node.currentBoard()[i].length; j++) {
-					if (node.currentBoard()[i][j].type() == Type.EMPTY) {
-						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) node.clone();
 
-						newBoard.add(piece, i, j);
+		for (int i = 0; i < node.currentBoard().length; i++) {
+			for (int j = 0; j < node.currentBoard()[i].length; j++) {
+				if (node.currentBoard()[i][j].type() == Type.EMPTY) {
+					BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) node.clone();
 
-						if (piece.type() == Type.CROSS) {
+					newBoard.add(piece, i, j);
 
-							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta);
+					if (piece.type() == Type.CROSS) {
 
-							if (gt.returnUtility() < utility) {
-								nextMove = gt.getBoard();
-								utility = gt.returnUtility();
-							}
-							beta = Math.min(beta, utility);
+						GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
+								new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta);
 
-							if (beta <= alpha) {
-								i = node.currentBoard().length - 1;
-								j = node.currentBoard()[0].length + 5;
-							}
-							
-						} else {
+						if (gt.returnUtility() < utility) {
+							nextMove = gt.getBoard();
+							utility = gt.returnUtility();
+						}
+						beta = Math.min(beta, utility);
 
-							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.CROSS), alpha, beta);
-							if (gt.returnUtility() > utility) {
-								nextMove = gt.getBoard();
-								utility = gt.returnUtility();
-							}
-							alpha = Math.max(alpha, utility);
+						if (beta <= alpha) {
+							i = node.currentBoard().length - 1;
+							j = node.currentBoard()[0].length + 5;
+						}
 
-							if (beta <= alpha) {
-								i = node.currentBoard().length - 1;
-								j = node.currentBoard()[0].length + 5;
-							}
+					} else {
+
+						GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
+								new PieceNaughtsAndCrosses(Type.CROSS), alpha, beta);
+						if (gt.returnUtility() > utility) {
+							nextMove = gt.getBoard();
+							utility = gt.returnUtility();
+						}
+						alpha = Math.max(alpha, utility);
+
+						if (beta <= alpha) {
+							i = node.currentBoard().length - 1;
+							j = node.currentBoard()[0].length + 5;
 						}
 					}
 				}
-			
+			}
 
 		}
 	}
-	
+
 	/**
 	 * This will set up the utility
+	 * 
 	 * @param piece The {@link PieceNaughtsAndCrosses} which is used
 	 * @return The initial utility
 	 */
 	private int setUpUtility(PieceNaughtsAndCrosses piece) {
-		
+
 		if (piece.type() == Type.CROSS) {
 			return Integer.MAX_VALUE;
 		} else {
 			return Integer.MIN_VALUE;
 		}
 	}
-	
+
 	/**
 	 * Whether this is a terminal node
+	 * 
 	 * @return {@code true} if its a terminal node otherwise {@code false}
 	 */
 	private boolean terminalNode() {
@@ -139,7 +140,7 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 	private BoardNaughtsAndCrosses getBoard() {
 		return node;
 	}
-	
+
 	@Override
 	public int returnUtility() {
 		return utility;

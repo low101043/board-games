@@ -1,7 +1,5 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
-import java.util.Random;
-
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.interfaces.ai.GameTree;
 import com.natlowis.games.game.interfaces.ai.MiniMax;
@@ -31,21 +29,21 @@ public class MiniMaxNaughtsAndCrosses implements MiniMax {
 	 * @param type  The {@link AiType} to use
 	 */
 	public MiniMaxNaughtsAndCrosses(Board board, Piece piece, AiType type) {
-		
+
 		PieceNaughtsAndCrosses pieceToUse;
 		if (piece.type() == Type.CROSS) {
 			pieceToUse = new PieceNaughtsAndCrosses(Type.CROSS);
 		} else {
 			pieceToUse = new PieceNaughtsAndCrosses(Type.NAUGHT);
 		}
-		
+
 		BoardNaughtsAndCrosses boardToUse = new BoardNaughtsAndCrosses(board.currentBoard());
 
-		GameTree gameTree;		
+		GameTree gameTree;
 		if (type == AiType.ALPHA_BETA) {
-			gameTree = new GameTreeAlphaBetaNaughtsAndCrosses(boardToUse, pieceToUse, Integer.MIN_VALUE, Integer.MAX_VALUE);
-		}
-		else {
+			gameTree = new GameTreeAlphaBetaNaughtsAndCrosses(boardToUse, pieceToUse, Integer.MIN_VALUE,
+					Integer.MAX_VALUE);
+		} else {
 			gameTree = new GameTreeMiniMaxNaughtsAndCrosses(boardToUse, pieceToUse);
 		}
 

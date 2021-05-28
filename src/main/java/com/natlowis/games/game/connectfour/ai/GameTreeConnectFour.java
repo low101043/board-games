@@ -34,63 +34,63 @@ public class GameTreeConnectFour implements GameTree {
 		node = previousBoard;
 		createTree(piece, alpha, beta);
 	}
-	
+
 	/**
 	 * This will create the tree
-	 * @param piece         The {@link PieceConnectFour} to add next
-	 * @param alpha         The alpha value. The Minimum the state can be
-	 * @param beta          The beta value. The Maximum the state can be
+	 * 
+	 * @param piece The {@link PieceConnectFour} to add next
+	 * @param alpha The alpha value. The Minimum the state can be
+	 * @param beta  The beta value. The Maximum the state can be
 	 */
 	private void createTree(PieceConnectFour piece, int alpha, int beta) {
 		if (terminalNode()) {
 			return;
 		}
-		
+
 		utility = setUpUtility(piece);
-					for (int i = 0; i < node.currentBoard()[0].length; i++) {
+		for (int i = 0; i < node.currentBoard()[0].length; i++) {
 
-				if (node.currentBoard()[0][i].type() == Type.EMPTY) {
-					BoardConnectFour newBoard = (BoardConnectFour) node.clone();
-					newBoard.add(piece, i);
+			if (node.currentBoard()[0][i].type() == Type.EMPTY) {
+				BoardConnectFour newBoard = (BoardConnectFour) node.clone();
+				newBoard.add(piece, i);
 
+				if (piece.type() == Type.CROSS) {
 
-					if (piece.type() == Type.CROSS) {
+					GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT), alpha,
+							beta);
 
-						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT),
-								alpha, beta);
+					if (gt.returnUtility() < utility) {
+						nextMove = gt.getBoard();
+						utility = gt.returnUtility();
+					}
+					beta = Math.min(beta, utility);
 
-						if (gt.returnUtility() < utility) {
-							nextMove = gt.getBoard();
-							utility = gt.returnUtility();
-						}
-						beta = Math.min(beta, utility);
+					if (beta <= alpha) {
+						i = node.currentBoard()[0].length;
 
-						if (beta <= alpha) {
-							i = node.currentBoard()[0].length;
+					}
+				} else {
+					GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS), alpha,
+							beta);
+					if (gt.returnUtility() > utility) {
+						nextMove = gt.getBoard();
+						utility = gt.returnUtility();
+					}
+					alpha = Math.max(alpha, utility);
 
-						}
-					} else {
-						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS),
-								alpha, beta);
-						if (gt.returnUtility() > utility) {
-							nextMove = gt.getBoard();
-							utility = gt.returnUtility();
-						}
-						alpha = Math.max(alpha, utility);
+					if (beta <= alpha) {
+						i = node.currentBoard().length;
 
-						if (beta <= alpha) {
-							i = node.currentBoard().length;
-
-						}
 					}
 				}
 			}
-		
+		}
 
 	}
 
 	/**
 	 * This will set up the utility
+	 * 
 	 * @param piece The {@link PieceConnectFour} which is used
 	 * @return The initial utility
 	 */
@@ -101,9 +101,10 @@ public class GameTreeConnectFour implements GameTree {
 			return Integer.MIN_VALUE;
 		}
 	}
-	
+
 	/**
 	 * Whether this is a terminal node
+	 * 
 	 * @return {@code true} if its a terminal node otherwise {@code false}
 	 */
 	private boolean terminalNode() {
@@ -131,7 +132,7 @@ public class GameTreeConnectFour implements GameTree {
 	private BoardConnectFour getBoard() {
 		return node;
 	}
-	
+
 	@Override
 	public int returnUtility() {
 		return utility;
