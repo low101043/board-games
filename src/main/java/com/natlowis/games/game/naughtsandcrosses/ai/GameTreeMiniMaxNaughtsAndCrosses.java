@@ -3,6 +3,7 @@ package com.natlowis.games.game.naughtsandcrosses.ai;
 import java.util.ArrayList;
 
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.connectfour.PieceConnectFour;
 import com.natlowis.games.game.interfaces.ai.GameTree;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
@@ -34,11 +35,17 @@ public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 		createTree(piece);
 	}
 	
+	/**
+	 * Will create the tree
+	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
+	 */
 	private void createTree(PieceNaughtsAndCrosses piece) {
 		if (terminalNode()) {
 			return;
 		}
+		
 		utility = setUpUtility(piece);
+		
 		for (int i = 0; i < node.currentBoard().length; i++) {
 				for (int j = 0; j < node.currentBoard()[i].length; j++) {
 					if (node.currentBoard()[i][j].type() == Type.EMPTY) {
@@ -71,6 +78,11 @@ public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 			}
 	}
 	
+	/**
+	 * This will set up the utility
+	 * @param piece The {@link PieceNaughtsAndCrosses} which is used
+	 * @return The initial utility
+	 */
 	private int setUpUtility(PieceNaughtsAndCrosses piece) {
 		
 		if (piece.type() == Type.CROSS) {
@@ -80,6 +92,10 @@ public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 		}
 	}
 	
+	/**
+	 * Whether this is a terminal node
+	 * @return {@code true} if its a terminal node otherwise {@code false}
+	 */
 	private boolean terminalNode() {
 		if (node.won() == null) {
 			utility = 0;
@@ -97,11 +113,6 @@ public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 		return false;
 	}
 
-	@Override
-	public int returnUtility() {
-		return utility;
-	}
-
 	/**
 	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
 	 * 
@@ -111,6 +122,11 @@ public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 		return node;
 	}
 
+	@Override
+	public int returnUtility() {
+		return utility;
+	}
+	
 	@Override
 	public Board nextMove() {
 		return nextMove;

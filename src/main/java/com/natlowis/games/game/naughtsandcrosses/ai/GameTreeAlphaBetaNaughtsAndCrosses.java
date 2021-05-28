@@ -1,6 +1,7 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.connectfour.PieceConnectFour;
 import com.natlowis.games.game.interfaces.ai.GameTree;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
@@ -37,6 +38,12 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 
 	}
 
+	/**
+	 * This will create the tree
+	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
+	 * @param alpha         The alpha value. The Minimum the state can be
+	 * @param beta          The beta value. The Maximum the state can be
+	 */
 	private void createTree(PieceNaughtsAndCrosses piece, int alpha, int beta) {
 		if (terminalNode()) {
 			return;
@@ -89,6 +96,11 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 		}
 	}
 	
+	/**
+	 * This will set up the utility
+	 * @param piece The {@link PieceNaughtsAndCrosses} which is used
+	 * @return The initial utility
+	 */
 	private int setUpUtility(PieceNaughtsAndCrosses piece) {
 		
 		if (piece.type() == Type.CROSS) {
@@ -98,6 +110,10 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 		}
 	}
 	
+	/**
+	 * Whether this is a terminal node
+	 * @return {@code true} if its a terminal node otherwise {@code false}
+	 */
 	private boolean terminalNode() {
 		if (node.won() == null) {
 			utility = 0;
@@ -114,12 +130,6 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 		}
 		return false;
 	}
-	
-	
-	@Override
-	public int returnUtility() {
-		return utility;
-	}
 
 	/**
 	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
@@ -128,6 +138,11 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 	 */
 	private BoardNaughtsAndCrosses getBoard() {
 		return node;
+	}
+	
+	@Override
+	public int returnUtility() {
+		return utility;
 	}
 
 	@Override

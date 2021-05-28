@@ -35,6 +35,12 @@ public class GameTreeConnectFour implements GameTree {
 		createTree(piece, alpha, beta);
 	}
 	
+	/**
+	 * This will create the tree
+	 * @param piece         The {@link PieceConnectFour} to add next
+	 * @param alpha         The alpha value. The Minimum the state can be
+	 * @param beta          The beta value. The Maximum the state can be
+	 */
 	private void createTree(PieceConnectFour piece, int alpha, int beta) {
 		if (terminalNode()) {
 			return;
@@ -83,6 +89,11 @@ public class GameTreeConnectFour implements GameTree {
 
 	}
 
+	/**
+	 * This will set up the utility
+	 * @param piece The {@link PieceConnectFour} which is used
+	 * @return The initial utility
+	 */
 	private int setUpUtility(PieceConnectFour piece) {
 		if (piece.type() == Type.CROSS) {
 			return Integer.MAX_VALUE;
@@ -90,6 +101,11 @@ public class GameTreeConnectFour implements GameTree {
 			return Integer.MIN_VALUE;
 		}
 	}
+	
+	/**
+	 * Whether this is a terminal node
+	 * @return {@code true} if its a terminal node otherwise {@code false}
+	 */
 	private boolean terminalNode() {
 		if (node.won() == null) {
 			utility = 0;
@@ -106,10 +122,6 @@ public class GameTreeConnectFour implements GameTree {
 		}
 		return false;
 	}
-	@Override
-	public int returnUtility() {
-		return utility;
-	}
 
 	/**
 	 * Gets the {@link BoardConnectFour} which is represented by this node
@@ -118,6 +130,11 @@ public class GameTreeConnectFour implements GameTree {
 	 */
 	private BoardConnectFour getBoard() {
 		return node;
+	}
+	
+	@Override
+	public int returnUtility() {
+		return utility;
 	}
 
 	@Override
