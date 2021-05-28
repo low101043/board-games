@@ -32,72 +32,80 @@ public class GameTreeConnectFour implements GameTree {
 	 */
 	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece, int alpha, int beta) {
 		node = previousBoard;
-		if (node.won() == null) {
-			utility = 0;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.CROSS) {
-			utility = -1;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.NAUGHT) {
-			utility = 1;
-			nextMove = null;
+		createTree(piece, alpha, beta);
+	}
+	
+	private void createTree(PieceConnectFour piece, int alpha, int beta) {
+		if (terminalNode()) {
 			return;
 		}
-		int v;
-		if (piece.type() == Type.CROSS) {
-			v = Integer.MAX_VALUE;
-		} else {
-			v = Integer.MIN_VALUE;
-		}
-		if (utility == -2) {
+		
+		utility = setUpUtility(piece);
+					for (int i = 0; i < node.currentBoard()[0].length; i++) {
 
-			for (int i = 0; i < previousBoard.currentBoard()[0].length; i++) {
+				if (node.currentBoard()[0][i].type() == Type.EMPTY) {
+					BoardConnectFour newBoard = (BoardConnectFour) node.clone();
+					newBoard.add(piece, i);
 
-				if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
-					BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
-					boolean completed = newBoard.add(piece, i);
-					if (!completed) {
-						System.out.println("ERROR");
-					}
 
 					if (piece.type() == Type.CROSS) {
 
 						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT),
 								alpha, beta);
 
-						if (gt.returnUtility() < v) {
+						if (gt.returnUtility() < utility) {
 							nextMove = gt.getBoard();
-							v = gt.returnUtility();
+							utility = gt.returnUtility();
 						}
-						beta = Math.min(beta, v);
+						beta = Math.min(beta, utility);
 
 						if (beta <= alpha) {
-							i = previousBoard.currentBoard()[0].length;
+							i = node.currentBoard()[0].length;
 
 						}
 					} else {
 						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS),
 								alpha, beta);
-						if (gt.returnUtility() > v) {
+						if (gt.returnUtility() > utility) {
 							nextMove = gt.getBoard();
-							v = gt.returnUtility();
+							utility = gt.returnUtility();
 						}
-						alpha = Math.max(alpha, v);
+						alpha = Math.max(alpha, utility);
 
 						if (beta <= alpha) {
-							i = previousBoard.currentBoard().length;
+							i = node.currentBoard().length;
 
 						}
 					}
 				}
 			}
-		}
-		utility = v;
+		
 
 	}
 
+	private int setUpUtility(PieceConnectFour piece) {
+		if (piece.type() == Type.CROSS) {
+			return Integer.MAX_VALUE;
+		} else {
+			return Integer.MIN_VALUE;
+		}
+	}
+	private boolean terminalNode() {
+		if (node.won() == null) {
+			utility = 0;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.CROSS) {
+			utility = -1;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.NAUGHT) {
+			utility = 1;
+			nextMove = null;
+			return true;
+		}
+		return false;
+	}
 	@Override
 	public int returnUtility() {
 		return utility;
