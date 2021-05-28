@@ -20,8 +20,6 @@ public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 	private BoardNaughtsAndCrosses node;
 	/** The utility of this node. -2 if not set otherwise -1,0,1 */
 	private int utility = -2;
-	/** The children of this node */
-	private ArrayList<GameTreeMiniMaxNaughtsAndCrosses> children = new ArrayList<GameTreeMiniMaxNaughtsAndCrosses>();
 	/** The best next move to do */
 	private BoardNaughtsAndCrosses nextMove;
 
@@ -33,65 +31,70 @@ public class GameTreeMiniMaxNaughtsAndCrosses implements GameTree {
 	 */
 	public GameTreeMiniMaxNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece) {
 		node = previousBoard;
-		if (node.won() == null) {
-			utility = 0;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.CROSS) {
-			utility = -1;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.NAUGHT) {
-			utility = 1;
-			nextMove = null;
+		createTree(piece);
+	}
+	
+	private void createTree(PieceNaughtsAndCrosses piece) {
+		if (terminalNode()) {
 			return;
 		}
-		if (utility == -2) {
-			for (int i = 0; i < previousBoard.currentBoard().length; i++) {
-				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
-					if (previousBoard.currentBoard()[i][j].type() == Type.EMPTY) {
-						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) previousBoard.clone();
+		utility = setUpUtility(piece);
+		for (int i = 0; i < node.currentBoard().length; i++) {
+				for (int j = 0; j < node.currentBoard()[i].length; j++) {
+					if (node.currentBoard()[i][j].type() == Type.EMPTY) {
+						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) node.clone();
 
 						newBoard.add(piece, i, j);
 
 						if (piece.type() == Type.CROSS) {
-
-							children.add(new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.NAUGHT)));
+							
+							GameTreeMiniMaxNaughtsAndCrosses child = new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.NAUGHT));
+							
+							if (child.returnUtility() < utility) {
+								utility = child.returnUtility();
+								nextMove = child.getBoard();
+							}
+							
 						} else {
 
-							children.add(new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.CROSS)));
+							GameTreeMiniMaxNaughtsAndCrosses child = new GameTreeMiniMaxNaughtsAndCrosses(newBoard,
+									new PieceNaughtsAndCrosses(Type.CROSS));
+							
+							if (child.returnUtility() > utility) {
+								utility = child.returnUtility();
+								nextMove = child.getBoard();
+							}
 						}
 					}
 				}
 			}
-			int v;
-			if (piece.type() == Type.CROSS) {
-				v = Integer.MAX_VALUE;
-			} else {
-				v = Integer.MIN_VALUE;
-			}
-			for (GameTreeMiniMaxNaughtsAndCrosses child : children) {
-
-				if (piece.type() == Type.CROSS) {
-
-					if (child.returnUtility() < v) {
-						v = child.returnUtility();
-						nextMove = child.getBoard();
-					}
-
-				} else {
-
-					if (child.returnUtility() > v) {
-						v = child.returnUtility();
-						nextMove = child.getBoard();
-					}
-				}
-			}
-			utility = v;
+	}
+	
+	private int setUpUtility(PieceNaughtsAndCrosses piece) {
+		
+		if (piece.type() == Type.CROSS) {
+			return Integer.MAX_VALUE;
+		} else {
+			return Integer.MIN_VALUE;
 		}
-
+	}
+	
+	private boolean terminalNode() {
+		if (node.won() == null) {
+			utility = 0;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.CROSS) {
+			utility = -1;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.NAUGHT) {
+			utility = 1;
+			nextMove = null;
+			return true;
+		}
+		return false;
 	}
 
 	@Override

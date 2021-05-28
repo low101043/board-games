@@ -33,30 +33,21 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 	public GameTreeAlphaBetaNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece,
 			int alpha, int beta) {
 		node = previousBoard;
-		if (node.won() == null) {
-			utility = 0;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.CROSS) {
-			utility = -1;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.NAUGHT) {
-			utility = 1;
-			nextMove = null;
+		createTree(piece, alpha, beta);
+
+	}
+
+	private void createTree(PieceNaughtsAndCrosses piece, int alpha, int beta) {
+		if (terminalNode()) {
 			return;
 		}
-		int v;
-		if (piece.type() == Type.CROSS) {
-			v = Integer.MAX_VALUE;
-		} else {
-			v = Integer.MIN_VALUE;
-		}
-		if (utility == -2) {
-			for (int i = 0; i < previousBoard.currentBoard().length; i++) {
-				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
-					if (previousBoard.currentBoard()[i][j].type() == Type.EMPTY) {
-						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) previousBoard.clone();
+		
+		utility = setUpUtility(piece);
+		
+			for (int i = 0; i < node.currentBoard().length; i++) {
+				for (int j = 0; j < node.currentBoard()[i].length; j++) {
+					if (node.currentBoard()[i][j].type() == Type.EMPTY) {
+						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) node.clone();
 
 						newBoard.add(piece, i, j);
 
@@ -65,40 +56,66 @@ public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
 									new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta);
 
-							if (gt.returnUtility() < v) {
+							if (gt.returnUtility() < utility) {
 								nextMove = gt.getBoard();
-								v = gt.returnUtility();
+								utility = gt.returnUtility();
 							}
-							beta = Math.min(beta, v);
+							beta = Math.min(beta, utility);
 
 							if (beta <= alpha) {
-								i = previousBoard.currentBoard().length - 1;
-								j = previousBoard.currentBoard()[0].length + 5;
+								i = node.currentBoard().length - 1;
+								j = node.currentBoard()[0].length + 5;
 							}
+							
 						} else {
 
 							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
 									new PieceNaughtsAndCrosses(Type.CROSS), alpha, beta);
-							if (gt.returnUtility() > v) {
+							if (gt.returnUtility() > utility) {
 								nextMove = gt.getBoard();
-								v = gt.returnUtility();
+								utility = gt.returnUtility();
 							}
-							alpha = Math.max(alpha, v);
+							alpha = Math.max(alpha, utility);
 
 							if (beta <= alpha) {
-								i = previousBoard.currentBoard().length - 1;
-								j = previousBoard.currentBoard()[0].length + 5;
+								i = node.currentBoard().length - 1;
+								j = node.currentBoard()[0].length + 5;
 							}
 						}
 					}
 				}
-			}
-			utility = v;
+			
 
 		}
-
 	}
-
+	
+	private int setUpUtility(PieceNaughtsAndCrosses piece) {
+		
+		if (piece.type() == Type.CROSS) {
+			return Integer.MAX_VALUE;
+		} else {
+			return Integer.MIN_VALUE;
+		}
+	}
+	
+	private boolean terminalNode() {
+		if (node.won() == null) {
+			utility = 0;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.CROSS) {
+			utility = -1;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.NAUGHT) {
+			utility = 1;
+			nextMove = null;
+			return true;
+		}
+		return false;
+	}
+	
+	
 	@Override
 	public int returnUtility() {
 		return utility;
