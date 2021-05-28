@@ -15,7 +15,7 @@ This is a Java Project where I want to implement different board games.
     - Ultimately a Graphical User Interface
     
   - AI
-    - Naughts & Crosses.  Uses MiniMax (my own version created from pseudocode) and MiniMax with Alpha Beta Pruning (uses pseudocode check credit below)
+    - Naughts & Crosses.  Uses MiniMax (my own version created from pseudocode) and MiniMax with Alpha Beta Pruning (uses pseudocode check credit below).  There is a 50:50 chance of which one the game uses.
     - Connect Four has AI which takes hours.  (Had it running for 2 hours and still hadn't made a move)
     
 ## Credit

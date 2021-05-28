@@ -1,6 +1,9 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
+import java.util.Random;
+
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.interfaces.ai.GameTree;
 import com.natlowis.games.game.interfaces.ai.MiniMax;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.Piece;
@@ -25,17 +28,26 @@ public class MiniMaxNaughtsAndCrosses implements MiniMax {
 	 * 
 	 * @param board The {@link Board} to start from
 	 * @param piece The {@link Piece} whose move it is
+	 * @param type  The {@link AiType} to use
 	 */
-	public MiniMaxNaughtsAndCrosses(Board board, Piece piece) {
+	public MiniMaxNaughtsAndCrosses(Board board, Piece piece, AiType type) {
+		
 		PieceNaughtsAndCrosses pieceToUse;
 		if (piece.type() == Type.CROSS) {
 			pieceToUse = new PieceNaughtsAndCrosses(Type.CROSS);
 		} else {
 			pieceToUse = new PieceNaughtsAndCrosses(Type.NAUGHT);
 		}
+		
 		BoardNaughtsAndCrosses boardToUse = new BoardNaughtsAndCrosses(board.currentBoard());
 
-		GameTreeAlphaBetaNaughtsAndCrosses gameTree = new GameTreeAlphaBetaNaughtsAndCrosses(boardToUse, pieceToUse, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		GameTree gameTree;		
+		if (type == AiType.ALPHA_BETA) {
+			gameTree = new GameTreeAlphaBetaNaughtsAndCrosses(boardToUse, pieceToUse, Integer.MIN_VALUE, Integer.MAX_VALUE);
+		}
+		else {
+			gameTree = new GameTreeMiniMaxNaughtsAndCrosses(boardToUse, pieceToUse);
+		}
 
 		BoardNaughtsAndCrosses nextMove = (BoardNaughtsAndCrosses) gameTree.nextMove();
 

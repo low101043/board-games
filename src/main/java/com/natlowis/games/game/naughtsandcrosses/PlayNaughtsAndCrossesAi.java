@@ -1,9 +1,15 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
+import java.util.Random;
+
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.interfaces.ai.GameTree;
 import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.interfaces.games.Piece;
 import com.natlowis.games.game.interfaces.games.Play;
+import com.natlowis.games.game.naughtsandcrosses.ai.AiType;
+import com.natlowis.games.game.naughtsandcrosses.ai.GameTreeAlphaBetaNaughtsAndCrosses;
+import com.natlowis.games.game.naughtsandcrosses.ai.GameTreeMiniMaxNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.ai.MiniMaxNaughtsAndCrosses;
 import com.natlowis.games.ui.cli.InputOutput;
 
@@ -41,14 +47,24 @@ public class PlayNaughtsAndCrossesAi implements Play {
 		if (first) {
 			playerOne = new PieceNaughtsAndCrosses(Type.CROSS);
 			playerTwo = new PieceNaughtsAndCrosses(Type.NAUGHT);
-
 			playerOneGo = true;
 		} else {
 			playerTwo = new PieceNaughtsAndCrosses(Type.CROSS);
 			playerOne = new PieceNaughtsAndCrosses(Type.NAUGHT);
 			playerOneGo = false;
 		}
-
+		
+		Random random = new Random();
+		AiType aiToUse;
+		if (random.nextFloat() < 0.5) {
+			inputOutput.output("Playing against AI using MiniMax with Alpha Beta Pruning");
+			aiToUse = AiType.ALPHA_BETA;
+		}
+		else {
+			inputOutput.output("Playing against AI using MiniMax");
+			aiToUse = AiType.MINIMAX;
+		}
+		
 		while (!completed()) {
 			print();
 
@@ -64,7 +80,7 @@ public class PlayNaughtsAndCrossesAi implements Play {
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("AI Running");
-				MiniMaxNaughtsAndCrosses miniMaxNaughtsAndCrosses = new MiniMaxNaughtsAndCrosses(board, playerTwo);
+				MiniMaxNaughtsAndCrosses miniMaxNaughtsAndCrosses = new MiniMaxNaughtsAndCrosses(board, playerTwo, aiToUse);
 				int[] coord = miniMaxNaughtsAndCrosses.coordinates();
 
 				int i = coord[0];
