@@ -1,8 +1,8 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.interfaces.Board;
-import com.natlowis.games.game.interfaces.Piece;
+import com.natlowis.games.game.interfaces.games.Board;
+import com.natlowis.games.game.interfaces.games.Piece;
 
 /**
  * This will hold the game used in Naughts and Crosses
@@ -39,9 +39,8 @@ public class BoardNaughtsAndCrosses implements Board {
 	 * A constructor which is used to create a {@code GameTree}
 	 * 
 	 * @param boardCopy A copy of the previous board
-	 * @param blankCopy A copy of the blank {@link Piece}
 	 */
-	public BoardNaughtsAndCrosses(Piece[][] boardCopy, Piece blankCopy) {
+	public BoardNaughtsAndCrosses(Piece[][] boardCopy) {
 		Piece blank = new PieceNaughtsAndCrosses(Type.EMPTY);
 		Piece cross = new PieceNaughtsAndCrosses(Type.CROSS);
 		Piece naughts = new PieceNaughtsAndCrosses(Type.NAUGHT);
@@ -159,7 +158,7 @@ public class BoardNaughtsAndCrosses implements Board {
 		try {
 			return (BoardNaughtsAndCrosses) super.clone();
 		} catch (CloneNotSupportedException e) {
-			return new BoardNaughtsAndCrosses(board, new PieceNaughtsAndCrosses(Type.EMPTY));
+			return new BoardNaughtsAndCrosses(board);
 		}
 	}
 

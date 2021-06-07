@@ -11,14 +11,7 @@ import java.util.Scanner;
 public class InputOutput {
 
 	/** The {@link Scanner} to use */
-	private Scanner input;
-
-	/**
-	 * The basic Constructor
-	 */
-	public InputOutput() {
-		input = new Scanner(System.in);
-	}
+	private Scanner input = new Scanner(System.in);
 
 	/**
 	 * To get the input from the screen

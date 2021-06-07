@@ -1,6 +1,8 @@
 package com.natlowis.games.game.naughtsandcrosses.ai;
 
 import com.natlowis.games.game.Type;
+import com.natlowis.games.game.interfaces.ai.GameTree;
+import com.natlowis.games.game.interfaces.games.Board;
 import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
 import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
 
@@ -11,7 +13,7 @@ import com.natlowis.games.game.naughtsandcrosses.PieceNaughtsAndCrosses;
  * @author low101043
  *
  */
-public class GameTreeAlphaBetaNaughtsAndCrosses {
+public class GameTreeAlphaBetaNaughtsAndCrosses implements GameTree {
 
 	/** The {@link BoardNaughtsAndCrosses} which is represented by this node */
 	private BoardNaughtsAndCrosses node;
@@ -25,94 +27,109 @@ public class GameTreeAlphaBetaNaughtsAndCrosses {
 	 * 
 	 * @param previousBoard The Parent of the node
 	 * @param piece         The {@link PieceNaughtsAndCrosses} to add next
-	 * @param alpha         The alpha value
-	 * @param beta          The beta value
+	 * @param alpha         The alpha value. The minimum value this state could be.
+	 * @param beta          The beta value. The maximum value this state could be.
 	 */
 	public GameTreeAlphaBetaNaughtsAndCrosses(BoardNaughtsAndCrosses previousBoard, PieceNaughtsAndCrosses piece,
 			int alpha, int beta) {
 		node = previousBoard;
-		if (node.won() == null) {
-			utility = 0;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.CROSS) {
-			utility = -1;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.NAUGHT) {
-			utility = 1;
-			nextMove = null;
+		createTree(piece, alpha, beta);
+
+	}
+
+	/**
+	 * This will create the tree
+	 * 
+	 * @param piece The {@link PieceNaughtsAndCrosses} to add next
+	 * @param alpha The alpha value. The Minimum the state can be
+	 * @param beta  The beta value. The Maximum the state can be
+	 */
+	private void createTree(PieceNaughtsAndCrosses piece, int alpha, int beta) {
+		if (terminalNode()) {
 			return;
 		}
-		int v;
-		if (piece.type() == Type.CROSS) {
-			v = Integer.MAX_VALUE;
-		} else {
-			v = Integer.MIN_VALUE;
-		}
-		if (utility == -2) {
-			for (int i = 0; i < previousBoard.currentBoard().length; i++) {
-				for (int j = 0; j < previousBoard.currentBoard()[i].length; j++) {
-					if (previousBoard.currentBoard()[i][j].type() == Type.EMPTY) {
-						BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) previousBoard.clone();
 
-						newBoard.add(piece, i, j);
+		utility = setUpUtility(piece);
 
-						if (piece.type() == Type.CROSS) {
+		for (int i = 0; i < node.currentBoard().length; i++) {
+			for (int j = 0; j < node.currentBoard()[i].length; j++) {
+				if (node.currentBoard()[i][j].type() == Type.EMPTY) {
+					BoardNaughtsAndCrosses newBoard = (BoardNaughtsAndCrosses) node.clone();
 
-							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta);
+					newBoard.add(piece, i, j);
 
-							if (gt.returnUtility() < v) {
-								nextMove = gt.getBoard();
-								v = gt.returnUtility();
-							}
-							beta = Math.min(beta, v);
+					if (piece.type() == Type.CROSS) {
 
-							if (beta <= alpha) {
-								i = previousBoard.currentBoard().length - 1;
-								j = previousBoard.currentBoard()[0].length + 5;
-							}
-						} else {
+						GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
+								new PieceNaughtsAndCrosses(Type.NAUGHT), alpha, beta);
 
-							GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
-									new PieceNaughtsAndCrosses(Type.CROSS), alpha, beta);
-							if (gt.returnUtility() > v) {
-								nextMove = gt.getBoard();
-								v = gt.returnUtility();
-							}
-							alpha = Math.max(alpha, v);
+						if (gt.returnUtility() < utility) {
+							nextMove = gt.getBoard();
+							utility = gt.returnUtility();
+						}
+						beta = Math.min(beta, utility);
 
-							if (beta <= alpha) {
-								i = previousBoard.currentBoard().length - 1;
-								j = previousBoard.currentBoard()[0].length + 5;
-							}
+						if (beta <= alpha) {
+							i = node.currentBoard().length - 1;
+							j = node.currentBoard()[0].length + 5;
+						}
+
+					} else {
+
+						GameTreeAlphaBetaNaughtsAndCrosses gt = new GameTreeAlphaBetaNaughtsAndCrosses(newBoard,
+								new PieceNaughtsAndCrosses(Type.CROSS), alpha, beta);
+						if (gt.returnUtility() > utility) {
+							nextMove = gt.getBoard();
+							utility = gt.returnUtility();
+						}
+						alpha = Math.max(alpha, utility);
+
+						if (beta <= alpha) {
+							i = node.currentBoard().length - 1;
+							j = node.currentBoard()[0].length + 5;
 						}
 					}
 				}
 			}
-			utility = v;
 
 		}
-
 	}
 
 	/**
-	 * Sets the new utility value
+	 * This will set up the utility
 	 * 
-	 * @param newUtility The new value
+	 * @param piece The {@link PieceNaughtsAndCrosses} which is used
+	 * @return The initial utility
 	 */
-	public void setUtility(int newUtility) {
-		utility = newUtility;
+	private int setUpUtility(PieceNaughtsAndCrosses piece) {
+
+		if (piece.type() == Type.CROSS) {
+			return Integer.MAX_VALUE;
+		} else {
+			return Integer.MIN_VALUE;
+		}
 	}
 
 	/**
-	 * Gets the current Utility value
+	 * Whether this is a terminal node
 	 * 
-	 * @return
+	 * @return {@code true} if its a terminal node otherwise {@code false}
 	 */
-	public int returnUtility() {
-		return utility;
+	private boolean terminalNode() {
+		if (node.won() == null) {
+			utility = 0;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.CROSS) {
+			utility = -1;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.NAUGHT) {
+			utility = 1;
+			nextMove = null;
+			return true;
+		}
+		return false;
 	}
 
 	/**
@@ -120,16 +137,17 @@ public class GameTreeAlphaBetaNaughtsAndCrosses {
 	 * 
 	 * @return The {@link BoardNaughtsAndCrosses}
 	 */
-	public BoardNaughtsAndCrosses getBoard() {
+	private BoardNaughtsAndCrosses getBoard() {
 		return node;
 	}
 
-	/**
-	 * Gets the next move to be done by this Node
-	 * 
-	 * @return The {@link BoardNaughtsAndCrosses} which is the next move
-	 */
-	public BoardNaughtsAndCrosses nextMove() {
+	@Override
+	public int returnUtility() {
+		return utility;
+	}
+
+	@Override
+	public Board nextMove() {
 		return nextMove;
 	}
 }

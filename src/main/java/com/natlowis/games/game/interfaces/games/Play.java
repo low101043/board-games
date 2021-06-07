@@ -1,4 +1,4 @@
-package com.natlowis.games.game.interfaces;
+package com.natlowis.games.game.interfaces.games;
 
 /**
  * This will play the actual game

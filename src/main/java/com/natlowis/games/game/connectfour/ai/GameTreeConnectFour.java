@@ -3,15 +3,17 @@ package com.natlowis.games.game.connectfour.ai;
 import com.natlowis.games.game.Type;
 import com.natlowis.games.game.connectfour.BoardConnectFour;
 import com.natlowis.games.game.connectfour.PieceConnectFour;
-import com.natlowis.games.game.naughtsandcrosses.BoardNaughtsAndCrosses;
+import com.natlowis.games.game.interfaces.ai.GameTree;
+import com.natlowis.games.game.interfaces.games.Board;
 
 /**
- * Creates the GameTree for a Naughts and Crosses Game
+ * Creates the GameTree for a Connect Four Game. Uses MiniMax with Alpha Beta
+ * Pruning
  * 
  * @author low101043
  *
  */
-public class GameTreeConnectFour {
+public class GameTreeConnectFour implements GameTree {
 
 	/** The {@link BoardConnectFour} which is represented by this node */
 	private BoardConnectFour node;
@@ -23,112 +25,121 @@ public class GameTreeConnectFour {
 	/**
 	 * The constructor
 	 * 
-	 * @param previousBoard The Parent of the node
+	 * @param previousBoard The State of the node
 	 * @param piece         The {@link PieceConnectFour} to add next
-	 * @param alpha         The alpha value
-	 * @param beta          The beta value
+	 * @param alpha         The alpha value. The Minimum the state can be
+	 * @param beta          The beta value. The Maximum the state can be
 	 */
 	public GameTreeConnectFour(BoardConnectFour previousBoard, PieceConnectFour piece, int alpha, int beta) {
 		node = previousBoard;
-		if (node.won() == null) {
-			utility = 0;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.CROSS) {
-			utility = -1;
-			nextMove = null;
-			return;
-		} else if (node.won() == Type.NAUGHT) {
-			utility = 1;
-			nextMove = null;
+		createTree(piece, alpha, beta);
+	}
+
+	/**
+	 * This will create the tree
+	 * 
+	 * @param piece The {@link PieceConnectFour} to add next
+	 * @param alpha The alpha value. The Minimum the state can be
+	 * @param beta  The beta value. The Maximum the state can be
+	 */
+	private void createTree(PieceConnectFour piece, int alpha, int beta) {
+		if (terminalNode()) {
 			return;
 		}
-		int v;
-		if (piece.type() == Type.CROSS) {
-			v = Integer.MAX_VALUE;
-		} else {
-			v = Integer.MIN_VALUE;
-		}
-		if (utility == -2) {
 
-			for (int i = 0; i < previousBoard.currentBoard()[0].length; i++) {
+		utility = setUpUtility(piece);
+		for (int i = 0; i < node.currentBoard()[0].length; i++) {
 
-				if (previousBoard.currentBoard()[0][i].type() == Type.EMPTY) {
-					BoardConnectFour newBoard = (BoardConnectFour) previousBoard.clone();
-					boolean completed = newBoard.add(piece, i);
-					if (!completed) {
-						System.out.println("ERROR");
+			if (node.currentBoard()[0][i].type() == Type.EMPTY) {
+				BoardConnectFour newBoard = (BoardConnectFour) node.clone();
+				newBoard.add(piece, i);
+
+				if (piece.type() == Type.CROSS) {
+
+					GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT), alpha,
+							beta);
+
+					if (gt.returnUtility() < utility) {
+						nextMove = gt.getBoard();
+						utility = gt.returnUtility();
 					}
+					beta = Math.min(beta, utility);
 
-					if (piece.type() == Type.CROSS) {
+					if (beta <= alpha) {
+						i = node.currentBoard()[0].length;
 
-						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.NAUGHT),
-								alpha, beta);
+					}
+				} else {
+					GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS), alpha,
+							beta);
+					if (gt.returnUtility() > utility) {
+						nextMove = gt.getBoard();
+						utility = gt.returnUtility();
+					}
+					alpha = Math.max(alpha, utility);
 
-						if (gt.returnUtility() < v) {
-							nextMove = gt.getBoard();
-							v = gt.returnUtility();
-						}
-						beta = Math.min(beta, v);
+					if (beta <= alpha) {
+						i = node.currentBoard().length;
 
-						if (beta <= alpha) {
-							i = previousBoard.currentBoard()[0].length;
-
-						}
-					} else {
-						GameTreeConnectFour gt = new GameTreeConnectFour(newBoard, new PieceConnectFour(Type.CROSS),
-								alpha, beta);
-						if (gt.returnUtility() > v) {
-							nextMove = gt.getBoard();
-							v = gt.returnUtility();
-						}
-						alpha = Math.max(alpha, v);
-
-						if (beta <= alpha) {
-							i = previousBoard.currentBoard().length;
-
-						}
 					}
 				}
 			}
 		}
-		utility = v;
 
 	}
 
 	/**
-	 * Sets the new utility value
+	 * This will set up the utility
 	 * 
-	 * @param newUtility The new value
+	 * @param piece The {@link PieceConnectFour} which is used
+	 * @return The initial utility
 	 */
-	public void setUtility(int newUtility) {
-		utility = newUtility;
+	private int setUpUtility(PieceConnectFour piece) {
+		if (piece.type() == Type.CROSS) {
+			return Integer.MAX_VALUE;
+		} else {
+			return Integer.MIN_VALUE;
+		}
 	}
 
 	/**
-	 * Gets the current Utility value
+	 * Whether this is a terminal node
 	 * 
-	 * @return
+	 * @return {@code true} if its a terminal node otherwise {@code false}
 	 */
+	private boolean terminalNode() {
+		if (node.won() == null) {
+			utility = 0;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.CROSS) {
+			utility = -1;
+			nextMove = null;
+			return true;
+		} else if (node.won() == Type.NAUGHT) {
+			utility = 1;
+			nextMove = null;
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Gets the {@link BoardConnectFour} which is represented by this node
+	 * 
+	 * @return The {@link BoardConnectFour}
+	 */
+	private BoardConnectFour getBoard() {
+		return node;
+	}
+
+	@Override
 	public int returnUtility() {
 		return utility;
 	}
 
-	/**
-	 * Gets the {@link BoardNaughtsAndCrosses} which is represented by this node
-	 * 
-	 * @return The {@link BoardNaughtsAndCrosses}
-	 */
-	public BoardConnectFour getBoard() {
-		return node;
-	}
-
-	/**
-	 * Gets the next move to be done by this Node
-	 * 
-	 * @return The {@link BoardNaughtsAndCrosses} which is the next move
-	 */
-	public BoardConnectFour nextMove() {
+	@Override
+	public Board nextMove() {
 		return nextMove;
 	}
 }

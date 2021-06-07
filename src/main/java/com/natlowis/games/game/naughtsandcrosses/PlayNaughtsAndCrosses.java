@@ -1,9 +1,9 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.interfaces.Board;
-import com.natlowis.games.game.interfaces.Piece;
-import com.natlowis.games.game.interfaces.Play;
+import com.natlowis.games.game.interfaces.games.Board;
+import com.natlowis.games.game.interfaces.games.Piece;
+import com.natlowis.games.game.interfaces.games.Play;
 import com.natlowis.games.ui.cli.InputOutput;
 
 /**
@@ -15,7 +15,7 @@ import com.natlowis.games.ui.cli.InputOutput;
 public class PlayNaughtsAndCrosses implements Play {
 
 	/** The {@link Board} to use */
-	private Board board;
+	private Board board = new BoardNaughtsAndCrosses();
 	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
 
@@ -25,7 +25,6 @@ public class PlayNaughtsAndCrosses implements Play {
 	 * @param inputOutput The {@link InputOutput} to use
 	 */
 	public PlayNaughtsAndCrosses(InputOutput inputOutput) {
-		board = new BoardNaughtsAndCrosses();
 		this.inputOutput = inputOutput;
 	}
 
@@ -74,7 +73,6 @@ public class PlayNaughtsAndCrosses implements Play {
 
 		Type won = board.won();
 
-		// System.out.println(won.type());
 		if (won == null) {
 			return true;
 		} else if (won == Type.EMPTY) {

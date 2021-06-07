@@ -1,10 +1,13 @@
 package com.natlowis.games.game.naughtsandcrosses;
 
+import java.util.Random;
+
 import com.natlowis.games.game.Type;
-import com.natlowis.games.game.interfaces.Board;
-import com.natlowis.games.game.interfaces.Piece;
-import com.natlowis.games.game.interfaces.Play;
-import com.natlowis.games.game.naughtsandcrosses.ai.MinMax;
+import com.natlowis.games.game.interfaces.games.Board;
+import com.natlowis.games.game.interfaces.games.Piece;
+import com.natlowis.games.game.interfaces.games.Play;
+import com.natlowis.games.game.naughtsandcrosses.ai.AiType;
+import com.natlowis.games.game.naughtsandcrosses.ai.MiniMaxNaughtsAndCrosses;
 import com.natlowis.games.ui.cli.InputOutput;
 
 /**
@@ -16,7 +19,7 @@ import com.natlowis.games.ui.cli.InputOutput;
 public class PlayNaughtsAndCrossesAi implements Play {
 
 	/** The {@link Board} to use */
-	private Board board;
+	private Board board = new BoardNaughtsAndCrosses();
 	/** The {@link InputOutput} to use */
 	private InputOutput inputOutput;
 	/** Whether the user goes first or not */
@@ -29,7 +32,6 @@ public class PlayNaughtsAndCrossesAi implements Play {
 	 * @param first       {@code true} if user goes first otherwise {@code false}
 	 */
 	public PlayNaughtsAndCrossesAi(InputOutput inputOutput, boolean first) {
-		board = new BoardNaughtsAndCrosses();
 		this.inputOutput = inputOutput;
 		this.first = first;
 	}
@@ -42,12 +44,21 @@ public class PlayNaughtsAndCrossesAi implements Play {
 		if (first) {
 			playerOne = new PieceNaughtsAndCrosses(Type.CROSS);
 			playerTwo = new PieceNaughtsAndCrosses(Type.NAUGHT);
-
 			playerOneGo = true;
 		} else {
 			playerTwo = new PieceNaughtsAndCrosses(Type.CROSS);
 			playerOne = new PieceNaughtsAndCrosses(Type.NAUGHT);
 			playerOneGo = false;
+		}
+
+		Random random = new Random();
+		AiType aiToUse;
+		if (random.nextFloat() < 0.5) {
+			inputOutput.output("Playing against AI using MiniMax with Alpha Beta Pruning");
+			aiToUse = AiType.ALPHA_BETA;
+		} else {
+			inputOutput.output("Playing against AI using MiniMax");
+			aiToUse = AiType.MINIMAX;
 		}
 
 		while (!completed()) {
@@ -65,8 +76,9 @@ public class PlayNaughtsAndCrossesAi implements Play {
 			}
 			while (!playerOneGo && !done) {
 				inputOutput.output("AI Running");
-				MinMax minMax = new MinMax(board, playerTwo);
-				int[] coord = minMax.coordinates();
+				MiniMaxNaughtsAndCrosses miniMaxNaughtsAndCrosses = new MiniMaxNaughtsAndCrosses(board, playerTwo,
+						aiToUse);
+				int[] coord = miniMaxNaughtsAndCrosses.coordinates();
 
 				int i = coord[0];
 				int j = coord[1];
